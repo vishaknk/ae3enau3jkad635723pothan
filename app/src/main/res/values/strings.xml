@@ -5,4 +5,8 @@
     <string name="login">Login</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="customer">Customer</string>
+    <string name="orders">Orders</string>
+    <string name="products">Products</string>
+    <string name="payment">Payment</string>
 </resources>

@@ -1,4 +1,4 @@
-package info.vnk.billex.activity;
+package info.vnk.billex.activity.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;

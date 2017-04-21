@@ -1,4 +1,4 @@
-package info.vnk.billex.activity;
+package info.vnk.billex.activity.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,9 +27,8 @@ public class SplashScreen extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(i);
- 
+                Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+                startActivity(intent);
                 // close this activity
                 finish();
             }
