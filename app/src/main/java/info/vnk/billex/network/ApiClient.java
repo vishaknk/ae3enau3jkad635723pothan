@@ -1,12 +1,12 @@
 package info.vnk.billex.network;
 
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
- 
- 
+import retrofit2.converter.jackson.JacksonConverterFactory;
+
+
 public class ApiClient {
  
-    public static final String BASE_URL = "http://api.themoviedb.org/3/";
+    public static final String BASE_URL = "http://exioxtechnologies.com/vaisakhmarketing/api/v1/index.php/";
     private static Retrofit retrofit = null;
  
  
@@ -14,7 +14,7 @@ public class ApiClient {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(JacksonConverterFactory.create())
                     .build();
         }
         return retrofit;
