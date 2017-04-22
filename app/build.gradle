@@ -49,5 +49,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     testCompile 'junit:junit:4.12'
     compile 'com.shawnlin:PreferencesManager:1.0.2'
+    compile('com.melnykov:floatingactionbutton:1.3.0') {
+        exclude group: 'com.android.support'
+    }
 
 }

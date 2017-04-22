@@ -1,5 +1,6 @@
 package info.vnk.billex.activity.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import info.vnk.billex.R;
+import info.vnk.billex.activity.order.OrderActivity;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.orders:
-                        Toast.makeText(getApplicationContext(),"Trash",Toast.LENGTH_SHORT).show();
+                        Intent orderIntent = new Intent(MainActivity.this, OrderActivity.class);
+                        startActivity(orderIntent);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.payment:

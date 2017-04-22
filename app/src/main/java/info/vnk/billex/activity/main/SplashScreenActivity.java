@@ -37,7 +37,7 @@ public class SplashScreenActivity extends BaseActivity {
                 // Start your app main activity
                 Intent intent = null;
                 if(preferencesManager.getBoolean(Constants.IS_LOGGED_IN, false))
-                    intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 else
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
 

@@ -32,6 +32,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.order.OrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="billex_db" />
@@ -41,7 +46,7 @@
 
         <activity android:name=".activity.main.HomeActivity"></activity>
         <activity android:name=".activity.order.CustomerActivity"></activity>
-        <activity android:name=".activity.order.OrderActivity"></activity>
+        <activity android:name=".activity.main.AddOrderActivity"></activity>
     </application>
 
 </manifest>
