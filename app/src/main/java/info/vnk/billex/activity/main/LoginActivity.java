@@ -1,4 +1,4 @@
-package info.vnk.billex.activity;
+package info.vnk.billex.activity.main;
 
 import android.content.Context;
 import android.content.Intent;

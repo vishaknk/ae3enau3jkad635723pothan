@@ -1,4 +1,4 @@
-package info.vnk.billex.activity;
+package info.vnk.billex.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import com.shawnlin.preferencesmanager.PreferencesManager;
 import info.vnk.billex.R;
 import info.vnk.billex.Utilities.Constants;
 import info.vnk.billex.Utilities.Preferences;
-import info.vnk.billex.activity.main.MainActivity;
 import info.vnk.billex.base.BaseActivity;
 
 public class SplashScreenActivity extends BaseActivity {
