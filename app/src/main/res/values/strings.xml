@@ -9,4 +9,8 @@
     <string name="orders">Orders</string>
     <string name="products">Products</string>
     <string name="payment">Payment</string>
+    <string name="select_customer">Select customer</string>
+    <string name="customer_name">Customer Name or ID</string>
+    <string name="product_name">Product Name</string>
+    <string name="price">Price</string>
 </resources>

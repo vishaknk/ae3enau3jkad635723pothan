@@ -5,4 +5,5 @@
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="grey">#d6d6d6</color>
 </resources>
