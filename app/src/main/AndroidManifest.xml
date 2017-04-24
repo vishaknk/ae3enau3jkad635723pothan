@@ -34,7 +34,8 @@
 
         <activity
             android:name=".activity.order.OrderActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <meta-data

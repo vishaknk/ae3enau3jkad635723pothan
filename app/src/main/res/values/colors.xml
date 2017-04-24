@@ -5,4 +5,8 @@
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="bg_grey">#DBDBDB</color>
+    <color name="grey">#d1d1d1</color>
+    <color name="bg_layout">#fdfaf5</color>
+    <color name="bg_light">#FDF1DB</color>
 </resources>

@@ -11,6 +11,21 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <EditText
+        android:id="@+id/et_search"
+        style="@style/EditTextSearchContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/search_layout"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:hint="Search"
+        android:layout_margin="10dp"
+        android:paddingLeft="5dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +34,17 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_prospect"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/bg_layout"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_login"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"/>
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab_create_message"

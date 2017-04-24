@@ -1,7 +1,6 @@
 package info.vnk.billex.activity.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,12 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.List;
-
 import info.vnk.billex.R;
-import info.vnk.billex.Utilities.Constants;
 import info.vnk.billex.base.BaseActivity;
-import info.vnk.billex.model.navigation.Login.LoginModel;
 import info.vnk.billex.model.navigation.ResultModel;
 import info.vnk.billex.network.ApiClient;
 import info.vnk.billex.network.ApiInterface;
@@ -45,6 +40,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void init() {
+        mContext = LoginActivity.this;
         mUsername = (EditText) findViewById(R.id.et_username);
         mPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
@@ -66,10 +62,10 @@ public class LoginActivity extends BaseActivity {
         call.enqueue(new Callback<ResultModel>() {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
-                setProgressBarHide();
-                //Log.v("Response", "" + response.raw());
-                List<LoginModel> loginDetails = response.body().getResult();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                /*//Log.v("Response", "" + response.raw());
+                List<LoginModel> loginDetails = response.body().getLoginResults();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 //checking the size of the results
                 if (loginDetails.size() != 0) {
                     //checking the status ; if the status is 0 then the account is inactive
@@ -93,7 +89,7 @@ public class LoginActivity extends BaseActivity {
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.error_inactive_user), Toast.LENGTH_LONG).show();
                     }
-                }
+                }*/
             }
 
             @Override
@@ -111,7 +107,6 @@ public class LoginActivity extends BaseActivity {
     public String getPassword() {
         return mPassword.getText().toString().trim().equals("") ? null : mPassword.getText().toString();
     }
-
     public void setProgressBarVisible() {
         progressBar.setVisibility(View.VISIBLE);
         btnLogin.setEnabled(false);

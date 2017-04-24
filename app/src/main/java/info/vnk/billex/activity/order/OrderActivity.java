@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -13,16 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.vnk.billex.R;
+import info.vnk.billex.Utilities.Constants;
 import info.vnk.billex.activity.main.AddOrderActivity;
 import info.vnk.billex.adapter.OrderListAdapter;
 import info.vnk.billex.base.BaseActivity;
-import info.vnk.billex.model.navigation.OrderModel;
+import info.vnk.billex.model.navigation.ResultModel;
+import info.vnk.billex.model.navigation.order.OrderListModel;
+import info.vnk.billex.network.ApiClient;
+import info.vnk.billex.network.ApiInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderActivity extends BaseActivity {
     private Context mContext;
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
     private FloatingActionButton mCreateOrder;
+    private EditText mSearch;
+    private List<OrderListModel>mOrderList;
+    private ProgressBar mProgressBar;
 
 
     @Override
@@ -32,7 +47,31 @@ public class OrderActivity extends BaseActivity {
         init();
         mContext = OrderActivity.this;
         setToolbar();
+        getOrderList();
         setRecyclerAdapter();
+
+    }
+
+    // call api to fetch data
+    private void getOrderList() {
+        setProgressBarVisible();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResultModel> call = apiService.getOrderList(preferencesManager.getString(Constants.mUserId));
+        call.enqueue(new Callback<ResultModel>() {
+            @Override
+            public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
+                mOrderList = response.body().getResult();
+                setRecyclerAdapter();
+                setProgressBarHide();
+            }
+
+            @Override
+            public void onFailure(Call<ResultModel> call, Throwable t) {
+
+                Toast.makeText(OrderActivity.this, "error"+t.getLocalizedMessage(), Toast.LENGTH_LONG);
+            }
+        });
+
     }
 
     @Override
@@ -45,21 +84,49 @@ public class OrderActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        mSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() != 0) {
+                    if (mOrderList != null)
+                        adapter.getFilter().filter(s.toString());
+                }
+                if (mOrderList != null)
+                    adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private void init() {
+        mOrderList = new ArrayList<>();
         mCreateOrder = (FloatingActionButton)findViewById(R.id.fab_create_message);
+        mSearch = (EditText) findViewById(R.id.et_search);
+        mProgressBar = (ProgressBar) findViewById(R.id.pb_login);
     }
 
     private void setRecyclerAdapter() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new OrderListAdapter(getAllOrders(), R.layout.item_order_list, mContext);
+        adapter = new OrderListAdapter(mOrderList, R.layout.item_order_list, mContext);
         recyclerView.setAdapter(adapter);
     }
 
-    private List<OrderModel> getAllOrders() {
-        List<OrderModel> Orders = new ArrayList<>();
-        return Orders;
+
+    public void setProgressBarVisible() {
+        mProgressBar.setVisibility(View.VISIBLE);
     }
+
+    public void setProgressBarHide() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
 }
