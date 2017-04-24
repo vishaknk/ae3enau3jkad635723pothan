@@ -1,4 +1,4 @@
-package info.vnk.billex.activity.order;
+package info.vnk.billex.activity.customer;
 
 import android.os.Bundle;
 

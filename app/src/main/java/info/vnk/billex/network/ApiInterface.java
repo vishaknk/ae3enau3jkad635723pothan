@@ -1,15 +1,22 @@
 package info.vnk.billex.network;
 
+import info.vnk.billex.model.navigation.ResultModel;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
- 
- 
+import retrofit2.http.POST;
+
+
 public interface ApiInterface {
-    /*@GET("movie/top_rated")
-    Call<MoviesResponse> getTopRatedMovies(@Query("api_key") String apiKey);
- 
-    @GET("movie/{id}")
-    Call<MoviesResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);*/
+
+    @FormUrlEncoded
+    @POST("userLogin")
+    Call<ResultModel> getUser(@Field("email_phone") String username, @Field("password") String password);
+
+    @GET("listPorducts")
+    Call<ResultModel> getProduct();
+
+    @GET("listCustomer")
+    Call<ResultModel> getCustomer();
 }

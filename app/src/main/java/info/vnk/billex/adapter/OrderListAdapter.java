@@ -56,6 +56,24 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     @Override
     public void onBindViewHolder(OrderListViewHolder holder, final int position) {
         //holder.companyName.setText();
+        holder.btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int data = orderListModel.get(position).getProductQuantity();
+                if(data > 0)
+                    orderListModel.get(position).setProductQuantity(data--);
+                notifyDataSetChanged();
+            }
+        });
+
+        holder.btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int data = orderListModel.get(position).getProductQuantity();
+                orderListModel.get(position).setProductQuantity(data++);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

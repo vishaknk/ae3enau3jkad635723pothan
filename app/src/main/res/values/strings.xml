@@ -5,6 +5,8 @@
     <string name="login">Login</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="error_inactive_user">Please enter valid credentials.</string>
+    <string name="try_again">Please try again later</string>
     <string name="customer">Customer</string>
     <string name="orders">Orders</string>
     <string name="products">Products</string>

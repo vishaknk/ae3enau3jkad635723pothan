@@ -13,13 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.main.SplashScreen"
+            android:name=".activity.main.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activity.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.main.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.order.OrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <meta-data
@@ -31,7 +46,7 @@
 
         <activity android:name=".activity.main.HomeActivity"></activity>
         <activity android:name=".activity.order.CustomerActivity"></activity>
-        <activity android:name=".activity.order.OrderActivity"></activity>
+        <activity android:name=".activity.main.AddOrderActivity"></activity>
     </application>
 
 </manifest>
