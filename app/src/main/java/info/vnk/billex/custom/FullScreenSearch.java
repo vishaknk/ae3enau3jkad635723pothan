@@ -23,6 +23,7 @@ public class FullScreenSearch extends LinearLayout {
 
     private List<ProductModel> productModel;
     private RecyclerView recyclerOrder;
+    private CustomListener listener;
 
     public FullScreenSearch(Context context) {
         super(context);
@@ -46,8 +47,9 @@ public class FullScreenSearch extends LinearLayout {
         recyclerOrder.setLayoutManager(new LinearLayoutManager(context));
     }
 
-    public void setProductAdapter(Context context){
-        SearchAdapter adapter = new SearchAdapter(getModel(),context);
+    public void setProductAdapter(Context context, List<ProductModel> productModel){
+        setModel(productModel);
+        SearchAdapter adapter = new SearchAdapter(getModel(), context, listener);
         recyclerOrder.setAdapter(adapter);
     }
 
@@ -57,5 +59,13 @@ public class FullScreenSearch extends LinearLayout {
 
     public List<ProductModel> getModel(){
         return productModel;
+    }
+
+    public CustomListener getListener() {
+        return listener;
+    }
+
+    public void setListener(CustomListener listener) {
+        this.listener = listener;
     }
 }
