@@ -69,9 +69,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         holder.name.setText(orderModel.get(position).getPdtName());
         holder.customerName.setText(orderModel.get(position).getPdtCode());
-        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
+        holder.price.setText("Mrp : " +  context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
         holder.orderDate.setText("Quantity : " + orderModel.get(position).getQuantity());
-        holder.deliveryDate.setText("Landing Cost : " + orderModel.get(position).getLandingCost());
+        holder.deliveryDate.setText("Landing Cost : "+
+                context.getResources().getString(R.string.rupees)+ orderModel.get(position).getLandingCost());
 
 
     }

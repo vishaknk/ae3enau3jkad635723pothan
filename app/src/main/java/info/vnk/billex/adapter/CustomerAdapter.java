@@ -37,15 +37,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     public static class CustomerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, price, orderDate, deliveryDate;
+        TextView name, customerName, price, phone, email;
 
         public CustomerViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.tv_name);
             customerName = (TextView) v.findViewById(R.id.tv_custmer_name);
             price = (TextView) v.findViewById(R.id.tv_price);
-            orderDate = (TextView) v.findViewById(R.id.tv_ordered_date);
-            deliveryDate = (TextView) v.findViewById(R.id.tv_delivery_date);
+            phone = (TextView) v.findViewById(R.id.tv_ordered_date);
+            email = (TextView) v.findViewById(R.id.tv_delivery_date);
         }
     }
 
@@ -69,9 +69,20 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
         holder.name.setText(orderModel.get(position).getCustName());
         holder.customerName.setText(orderModel.get(position).getCustAddress());
+        holder.price.setVisibility(View.GONE);
 //        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
-//        holder.orderDate.setText("Quantity : " + orderModel.get(position).getQuantity());
-//        holder.deliveryDate.setText("Landing Cost : " + orderModel.get(position).getLandingCost());
+        if(orderModel.get(position).getCustPhone() != null && !orderModel.get(position).getCustPhone().equals("")) {
+            holder.phone.setVisibility(View.VISIBLE);
+            holder.phone.setText("Phone : " + orderModel.get(position).getCustPhone());
+        }else{
+            holder.phone.setVisibility(View.GONE);
+        }
+        if(orderModel.get(position).getCustEmail() != null && !orderModel.get(position).getCustEmail().equals("")) {
+            holder.email.setVisibility(View.VISIBLE);
+            holder.email.setText("Email : " + orderModel.get(position).getCustEmail());
+        }else{
+            holder.email.setVisibility(View.GONE);
+        }
 
 
     }
