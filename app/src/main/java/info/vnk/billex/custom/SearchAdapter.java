@@ -21,6 +21,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private List<ProductModel> productListModel;
     private Context context;
+    private CustomListener listener;
 
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -35,9 +36,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(List<ProductModel> productList, Context context) {
+    public SearchAdapter(List<ProductModel> productList, Context context, CustomListener customListener) {
         this.productListModel = productList;
         this.context = context;
+        this.listener = customListener;
     }
 
 
@@ -55,7 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.mainRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onItemSelectedSearch();
             }
         });
     }

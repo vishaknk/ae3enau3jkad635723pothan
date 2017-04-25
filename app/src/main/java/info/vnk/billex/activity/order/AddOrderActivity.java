@@ -30,15 +30,16 @@ public class AddOrderActivity extends BaseActivity {
     private void init() {
 
         View viewOrder = findViewById(R.id.content_order_layout);
-        FullScreenSearch fullScreenSearch = (FullScreenSearch) viewOrder.findViewById(R.id.custom_search);
+        final FullScreenSearch fullScreenSearch = (FullScreenSearch) viewOrder.findViewById(R.id.custom_search);
         RecyclerView recyclerOrder = (RecyclerView) viewOrder.findViewById(R.id.rv_order);
         recyclerOrder.setLayoutManager(new LinearLayoutManager(context));
-        FloatingActionButton btnAddFab = (FloatingActionButton) findViewById(R.id.fab_add);
+        final FloatingActionButton btnAddFab = (FloatingActionButton) findViewById(R.id.fab_add);
         btnAddFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Click action
-
+                fullScreenSearch.setVisibility(View.VISIBLE);
+                btnAddFab.setVisibility(View.GONE);
             }
         });
     }

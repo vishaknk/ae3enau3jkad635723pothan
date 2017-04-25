@@ -22,7 +22,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.main.SplashScreenActivity"
+            android:name=".activity.order.AddOrderActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -47,7 +47,7 @@
 
         <activity android:name=".activity.main.HomeActivity"></activity>
         <activity android:name=".activity.customer.CustomerActivity"></activity>
-        <activity android:name=".activity.order.AddOrderActivity"></activity>
+        <activity android:name=".activity.main.SplashScreenActivity"></activity>
     </application>
 
 </manifest>
