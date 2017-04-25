@@ -1,6 +1,9 @@
 package info.vnk.billex.network;
 
+import info.vnk.billex.model.customer.CustomerResultModel;
 import info.vnk.billex.model.navigation.ResultModel;
+import info.vnk.billex.model.order.OrderResultModel;
+import info.vnk.billex.model.product.ProductResultModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,11 +19,11 @@ public interface ApiInterface {
     Call<ResultModel> getUser(@Field("email_phone") String username, @Field("password") String password);
 
     @GET("listPorducts")
-    Call<ResultModel> getProduct();
+    Call<ProductResultModel> getProduct();
 
     @GET("listCustomer")
-    Call<ResultModel> getCustomer();
+    Call<CustomerResultModel> getCustomer();
 
     @GET("staffOrderDetails?")
-    Call<ResultModel> getOrderList(@Query("staff_id") String string);
+    Call<OrderResultModel> getOrderList(@Query("staff_id") String string);
 }

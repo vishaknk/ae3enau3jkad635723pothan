@@ -1,8 +1,9 @@
-package info.vnk.billex.activity.order;
+package info.vnk.billex.activity.product;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -18,34 +19,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.vnk.billex.R;
-import info.vnk.billex.adapter.OrderListAdapter;
+import info.vnk.billex.activity.order.AddOrderActivity;
+import info.vnk.billex.adapter.ProductAdapter;
 import info.vnk.billex.base.BaseActivity;
-import info.vnk.billex.model.order.OrderListModel;
-import info.vnk.billex.model.order.OrderResultModel;
+import info.vnk.billex.model.product.ProductModel;
+import info.vnk.billex.model.product.ProductResultModel;
 import info.vnk.billex.network.ApiClient;
 import info.vnk.billex.network.ApiInterface;
-import info.vnk.billex.utilities.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by priyesh on 25/04/17.
+ */
 
-public class OrderActivity extends BaseActivity {
+public class ProductListingActivity extends BaseActivity {
+
     private Context mContext;
     private RecyclerView recyclerView;
-    private OrderListAdapter adapter;
+    private ProductAdapter adapter;
     private FloatingActionButton mCreateOrder;
     private EditText mSearch;
-    private List<OrderListModel>mOrderList;
+    private List<ProductModel> mProductList;
     private ProgressBar mProgressBar;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         init();
-        mContext = OrderActivity.this;
+        mContext = this;
         setToolbar();
         getOrderList();
         setRecyclerAdapter();
@@ -56,19 +60,19 @@ public class OrderActivity extends BaseActivity {
     private void getOrderList() {
         setProgressBarVisible();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<OrderResultModel> call = apiService.getOrderList(preferencesManager.getString(Constants.mUserId));
-        call.enqueue(new Callback<OrderResultModel>() {
+        Call<ProductResultModel> call = apiService.getProduct();
+        call.enqueue(new Callback<ProductResultModel>() {
             @Override
-            public void onResponse(Call<OrderResultModel> call, Response<OrderResultModel> response) {
-                mOrderList = response.body().getResult();
+            public void onResponse(Call<ProductResultModel> call, Response<ProductResultModel> response) {
+                mProductList = response.body().getResult();
                 setRecyclerAdapter();
                 setProgressBarHide();
             }
 
             @Override
-            public void onFailure(Call<OrderResultModel> call, Throwable t) {
+            public void onFailure(Call<ProductResultModel> call, Throwable t) {
                 setProgressBarHide();
-                Toast.makeText(OrderActivity.this, "error"+t.getLocalizedMessage(), Toast.LENGTH_LONG);
+                Toast.makeText(mContext, "error" + t.getLocalizedMessage(), Toast.LENGTH_LONG);
             }
         });
 
@@ -92,10 +96,10 @@ public class OrderActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() != 0) {
-                    if (mOrderList != null)
+                    if (mProductList != null)
                         adapter.getFilter().filter(s.toString());
                 }
-                if (mOrderList != null)
+                if (mProductList != null)
                     adapter.getFilter().filter(s.toString());
             }
 
@@ -106,17 +110,18 @@ public class OrderActivity extends BaseActivity {
     }
 
     private void init() {
-        mOrderList = new ArrayList<>();
-        mCreateOrder = (FloatingActionButton)findViewById(R.id.fab_create_message);
+        mProductList = new ArrayList<>();
+        mCreateOrder = (FloatingActionButton) findViewById(R.id.fab_create_message);
         mSearch = (EditText) findViewById(R.id.et_search);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_login);
+        mCreateOrder.setVisibility(View.GONE);
     }
 
     private void setRecyclerAdapter() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new OrderListAdapter(mOrderList, R.layout.item_order_list, mContext);
+        adapter = new ProductAdapter(mProductList, R.layout.item_order_list, mContext);
         recyclerView.setAdapter(adapter);
     }
 
@@ -128,5 +133,4 @@ public class OrderActivity extends BaseActivity {
     public void setProgressBarHide() {
         mProgressBar.setVisibility(View.INVISIBLE);
     }
-
 }
