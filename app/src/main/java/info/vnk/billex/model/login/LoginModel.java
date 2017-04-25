@@ -1,4 +1,4 @@
-package info.vnk.billex.model.navigation.Login;
+package info.vnk.billex.model.login;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -6,6 +6,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
@@ -19,4 +20,7 @@ public interface ApiInterface {
 
     @GET("listCustomer")
     Call<ResultModel> getCustomer();
+
+    @GET("staffOrderDetails?")
+    Call<ResultModel> getOrderList(@Query("staff_id") String string);
 }

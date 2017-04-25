@@ -34,7 +34,8 @@
 
         <activity
             android:name=".activity.order.OrderActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <meta-data
@@ -45,8 +46,8 @@
             android:value="1" />
 
         <activity android:name=".activity.main.HomeActivity"></activity>
-        <activity android:name=".activity.order.CustomerActivity"></activity>
-        <activity android:name=".activity.main.AddOrderActivity"></activity>
+        <activity android:name=".activity.customer.CustomerActivity"></activity>
+        <activity android:name=".activity.order.AddOrderActivity"></activity>
     </application>
 
 </manifest>
