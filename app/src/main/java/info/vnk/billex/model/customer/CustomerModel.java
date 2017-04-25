@@ -1,9 +1,11 @@
 package info.vnk.billex.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by Visak on 24/04/17.
  */
-
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class CustomerModel {
 
     private int id;
