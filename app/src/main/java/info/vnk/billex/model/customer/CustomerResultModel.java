@@ -1,22 +1,20 @@
-package info.vnk.billex.model.navigation;
+package info.vnk.billex.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import info.vnk.billex.model.login.LoginModel;
-
 /**
- * Created by priyesh on 22/04/17.
+ * Created by priyesh on 25/04/17.
  */
-@JsonIgnoreProperties( ignoreUnknown = true )
-public class ResultModel {
-    @JsonProperty("result")
-    private List<LoginModel> loginResult;
-//
-    private List<LoginModel> results;
 
+
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class CustomerResultModel {
+
+    @JsonProperty("result")
+    private List<CustomerModel> result;
 
     @JsonProperty("message")
     private String message;
@@ -24,12 +22,12 @@ public class ResultModel {
     @JsonProperty("status")
     private int status;
 
-    public List<LoginModel> getLoginResults() {
-        return loginResult;
+    public List<CustomerModel> getResult() {
+        return result;
     }
-//
-    public void setLoginResult(List<LoginModel> result) {
-        this.loginResult = result;
+
+    public void setResult(List<CustomerModel> result) {
+        this.result = result;
     }
 
     public String getMessage() {

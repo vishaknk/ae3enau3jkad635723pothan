@@ -1,6 +1,7 @@
 package info.vnk.billex.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,11 +11,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.List;
+
 import info.vnk.billex.R;
 import info.vnk.billex.base.BaseActivity;
+import info.vnk.billex.model.login.LoginModel;
 import info.vnk.billex.model.navigation.ResultModel;
 import info.vnk.billex.network.ApiClient;
 import info.vnk.billex.network.ApiInterface;
+import info.vnk.billex.utilities.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +68,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
 
-                /*//Log.v("Response", "" + response.raw());
+                //Log.v("Response", "" + response.raw());
                 List<LoginModel> loginDetails = response.body().getLoginResults();
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 //checking the size of the results
@@ -89,7 +94,7 @@ public class LoginActivity extends BaseActivity {
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.error_inactive_user), Toast.LENGTH_LONG).show();
                     }
-                }*/
+                }
             }
 
             @Override

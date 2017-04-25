@@ -22,7 +22,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.order.AddOrderActivity"
+            android:name=".activity.main.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -46,8 +46,15 @@
             android:value="1" />
 
         <activity android:name=".activity.main.HomeActivity"></activity>
-        <activity android:name=".activity.customer.CustomerActivity"></activity>
-        <activity android:name=".activity.main.SplashScreenActivity"></activity>
+        <activity android:name=".activity.customer.CustomerActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".activity.order.AddOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".activity.product.ProductListingActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
