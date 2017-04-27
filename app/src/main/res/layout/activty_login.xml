@@ -3,72 +3,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true">
+        android:layout_gravity="bottom">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="0.5">
-            <ProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pb_login"
-                android:visibility="invisible"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+            android:layout_gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:padding="10dp"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/et_username"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_margin="10dp"
-                android:padding="12dp"
-                android:background="@drawable/rounded_corner"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:hint="@string/username"/>
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_margin="10dp"
-                android:padding="12dp"
-                android:background="@drawable/rounded_corner"
-                android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:hint="@string/password"/>
 
-            <Button
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corner_bg_white"
-                android:layout_margin="10dp"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/login"
-                android:clickable="true"
-                android:onClick="getLogin"/>
-        </LinearLayout>
-    </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/pb_login"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <EditText
+                            android:id="@+id/et_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/rounded_corner"
+                            android:ems="10"
+                            android:hint="@string/username"
+                            android:inputType="textPersonName"
+                            android:padding="12dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/rounded_corner"
+                            android:ems="10"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:padding="12dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+
+                        <Button
+                            android:id="@+id/btn_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/rounded_corner_bg_white"
+                            android:clickable="true"
+                            android:onClick="getLogin"
+                            android:text="@string/login"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
 </LinearLayout>
