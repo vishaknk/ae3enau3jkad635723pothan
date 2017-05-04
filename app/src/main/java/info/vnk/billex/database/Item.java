@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 @Table(name = "Items")
 public class Item extends Model {
-	@SerializedName("name")
+	@SerializedName("ic_name_color")
     @Column(name = "Name")
 	public String name;
  

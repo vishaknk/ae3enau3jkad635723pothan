@@ -3,8 +3,10 @@ package info.vnk.billex.utilities;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 /**
  * Created by Visak on 27-12-2016.
  */
@@ -22,6 +26,26 @@ import java.util.Locale;
 public class General {
 
     public static EditText editText;
+
+    public static void setCalendar(Context context) {
+        // TODO Auto-generated method stub
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                getEditText().setText(setDate(myCalendar));
+            }
+        }, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMinDate(getCurrentDate());
+
+        datePickerDialog.show();
+    }
 
     public static void setCalendar(Context context, long minDate, long maxDate) {
         // TODO Auto-generated method stub
@@ -136,4 +160,6 @@ public class General {
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, offsetY);
         toast.show();
     }
+
+
 }

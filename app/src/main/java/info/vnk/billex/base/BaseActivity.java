@@ -18,8 +18,9 @@ import info.vnk.billex.utilities.Preferences;
 public class BaseActivity extends AppCompatActivity {
     protected PreferencesManager preferencesManager;
 
-    protected void setToolbar(){
+    protected Toolbar setToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -31,6 +32,7 @@ public class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+        return toolbar;
     }
 
     protected PreferencesManager setPreference(Context mContext){

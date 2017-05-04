@@ -19,7 +19,7 @@ import java.util.List;
 
 import info.vnk.billex.R;
 import info.vnk.billex.activity.order.AddOrderActivity;
-import info.vnk.billex.adapter.CustomerAdapter;
+import info.vnk.billex.adapter.customer.CustomerAdapter;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.model.customer.CustomerModel;
 import info.vnk.billex.model.customer.CustomerResultModel;

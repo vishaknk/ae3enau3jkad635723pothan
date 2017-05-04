@@ -1,4 +1,4 @@
-package info.vnk.billex.adapter;
+package info.vnk.billex.adapter.customer;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

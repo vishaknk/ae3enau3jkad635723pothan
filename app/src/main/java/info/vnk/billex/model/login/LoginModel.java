@@ -12,7 +12,7 @@ public class LoginModel {
     @JsonProperty("userId")
     private String userId;
 
-    @JsonProperty("name")
+    @JsonProperty("ic_name_color")
     private String name;
 
     @JsonProperty("email")

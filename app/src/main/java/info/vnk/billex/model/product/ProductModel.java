@@ -6,9 +6,12 @@ package info.vnk.billex.model.product;
 
 public class ProductModel {
 
+    public static final int DEFAULT_QUANTITY = 1;
     private int pdtId;
 
-    private String pdtCode, pdtName, mrp, purPrice, price1, quantity, landingCost;
+    private String pdtName;
+
+    private String pdtCode, mrp, purPrice, price1, quantity = "1", landingCost;
 
     public int getPdtId() {
         return pdtId;

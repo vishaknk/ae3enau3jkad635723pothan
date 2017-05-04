@@ -20,7 +20,7 @@ import java.util.List;
 
 import info.vnk.billex.R;
 import info.vnk.billex.activity.order.AddOrderActivity;
-import info.vnk.billex.adapter.ProductAdapter;
+import info.vnk.billex.adapter.product.ProductAdapter;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.model.product.ProductModel;
 import info.vnk.billex.model.product.ProductResultModel;
@@ -121,7 +121,7 @@ public class ProductListingActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProductAdapter(mProductList, R.layout.item_order_list, mContext);
+        adapter = new ProductAdapter(mProductList, R.layout.item_product_list, mContext);
         recyclerView.setAdapter(adapter);
     }
 

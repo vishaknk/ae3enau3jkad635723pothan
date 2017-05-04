@@ -15,5 +15,20 @@
     <string name="customer_name">Customer Name or ID</string>
     <string name="product_name">Product Name</string>
     <string name="price">Price</string>
-    <string name="rupees">\u20B9</string>
+    <string name="rupees">\u20B9 </string>
+    <string name="about">About</string>
+    <string name="about_description">Billex designed to handle time and billing tracking as well as invoicing customers for services and products. Billex can track the working hours by employees as well as expenses associated with projects or clients.</string>
+    <string name="logout">Logout</string>
+    <string name="unit">Unit</string>
+    <string name="date_of_delivery">Date of Delivery</string>
+    <string name="date_of_order">Date of Order</string>
+    <string name="place_order">Place Order</string>
+    <string name="powered_by">Powered by Exiox Technologies</string>
+    <string name="order_title">Order</string>
+    <string name="order_message">Are you sure want to remove the current order</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="order_delete">Are you sure want to delete the product</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

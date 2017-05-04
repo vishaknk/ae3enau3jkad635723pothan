@@ -14,7 +14,7 @@ import info.vnk.billex.model.login.LoginModel;
 public class ResultModel {
     @JsonProperty("result")
     private List<LoginModel> loginResult;
-//
+
     private List<LoginModel> results;
 
 
@@ -27,7 +27,7 @@ public class ResultModel {
     public List<LoginModel> getLoginResults() {
         return loginResult;
     }
-//
+
     public void setLoginResult(List<LoginModel> result) {
         this.loginResult = result;
     }

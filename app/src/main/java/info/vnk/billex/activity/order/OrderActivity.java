@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.vnk.billex.R;
-import info.vnk.billex.adapter.OrderListAdapter;
+import info.vnk.billex.adapter.order.OrderListAdapter;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.model.order.OrderListModel;
 import info.vnk.billex.model.order.OrderResultModel;
@@ -47,10 +47,9 @@ public class OrderActivity extends BaseActivity {
         init();
         mContext = OrderActivity.this;
         setToolbar();
-        getOrderList();
-        setRecyclerAdapter();
-
     }
+
+
 
     // call api to fetch data
     private void getOrderList() {
@@ -77,6 +76,8 @@ public class OrderActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getOrderList();
+        setRecyclerAdapter();
         mCreateOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

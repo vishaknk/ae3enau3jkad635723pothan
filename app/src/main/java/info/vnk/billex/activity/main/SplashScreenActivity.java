@@ -28,7 +28,7 @@ public class SplashScreenActivity extends BaseActivity {
 
             /*
              * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
+             * want to show case your app ic_logo_white / company
              */
 
             @Override

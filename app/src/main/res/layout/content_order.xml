@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,31 +11,62 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="@color/grey"
-            android:orientation="vertical"
-            android:padding="10dp">
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="5dp">
 
-            <TextView
-                android:id="@+id/tv_select_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/select_customer" />
-
-            <EditText
-                android:id="@+id/et_select_customer"
-                style="@style/materialStyleEditText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/customer_name"
-                android:inputType="textPersonName" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/et_select_customer"
+                    style="@style/materialStyleEditText_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:ems="10"
+                    android:hint="@string/customer_name"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:id="@+id/et_date_of_order"
+                        style="@style/materialStyleEditText_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_date_today_24dp"
+                        android:ems="10"
+                        android:hint="@string/date_of_order" />
+
+                    <EditText
+                        android:id="@+id/et_date_of_delivery"
+                        style="@style/materialStyleEditText_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_date_range_24dp"
+                        android:ems="10"
+                        android:hint="@string/date_of_delivery" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,12 +81,12 @@
 
     </LinearLayout>
 
-    <info.vnk.billex.custom.FullScreenSearch
+    <info.vnk.billex.custom.fullScreenSearch.FullScreenSearch
         android:id="@+id/custom_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
-    </info.vnk.billex.custom.FullScreenSearch>
+        android:visibility="gone"></info.vnk.billex.custom.fullScreenSearch.FullScreenSearch>
 
 </RelativeLayout>

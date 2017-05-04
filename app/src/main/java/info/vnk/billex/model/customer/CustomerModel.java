@@ -12,6 +12,14 @@ public class CustomerModel {
 
     private String custName, custAddress, custMobile, custPhone , custEmail, custLocation, ownerName, tin;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCustName() {
         return custName;
     }

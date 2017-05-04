@@ -3,8 +3,11 @@ package info.vnk.billex.network;
 import info.vnk.billex.model.customer.CustomerResultModel;
 import info.vnk.billex.model.navigation.ResultModel;
 import info.vnk.billex.model.order.OrderResultModel;
+import info.vnk.billex.model.order.PostMainOrderModel;
+import info.vnk.billex.model.order.PostOrderResultModel;
 import info.vnk.billex.model.product.ProductResultModel;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -18,7 +21,7 @@ public interface ApiInterface {
     @POST("userLogin")
     Call<ResultModel> getUser(@Field("email_phone") String username, @Field("password") String password);
 
-    @GET("listPorducts")
+    @GET("listProducts")
     Call<ProductResultModel> getProduct();
 
     @GET("listCustomer")
@@ -26,4 +29,7 @@ public interface ApiInterface {
 
     @GET("staffOrderDetails?")
     Call<OrderResultModel> getOrderList(@Query("staff_id") String string);
+
+    @POST("newOrder")
+    Call<PostOrderResultModel> postOrder(@Body PostMainOrderModel data);
 }
