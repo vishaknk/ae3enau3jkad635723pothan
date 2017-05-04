@@ -11,7 +11,7 @@ import com.activeandroid.annotation.Table;
 @Table(name = "tb_customer")
 public class CustomerDatabase extends Model{
 
-    @Column(name = "id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    @Column(name = "cust_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     private int cust_id;
 
     @Column(name = "customer_name")
