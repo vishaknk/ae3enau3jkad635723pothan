@@ -3,10 +3,8 @@ package info.vnk.billex.utilities;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,8 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by Visak on 27-12-2016.
@@ -159,6 +155,14 @@ public class General {
         int offsetY = (int) (-100 * scale);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, offsetY);
         toast.show();
+    }
+    public static boolean isNullOrEmpty(String value){
+        if(value != null && !value.equals("null") && !value.trim().toString().equals("")){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
 

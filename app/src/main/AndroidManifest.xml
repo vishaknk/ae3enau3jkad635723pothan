@@ -60,6 +60,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity
+            android:name=".activity.customer.CreateCustomerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity
             android:name=".activity.order.AddOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

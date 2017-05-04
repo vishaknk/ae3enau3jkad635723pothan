@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.vnk.billex.R;
-import info.vnk.billex.activity.order.AddOrderActivity;
 import info.vnk.billex.adapter.customer.CustomerAdapter;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.model.customer.CustomerModel;
@@ -75,7 +74,7 @@ public class CustomerActivity extends BaseActivity {
         mCreateOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddOrderActivity.class);
+                Intent intent = new Intent(mContext, CreateCustomerActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,14 +104,13 @@ public class CustomerActivity extends BaseActivity {
         mCreateOrder = (FloatingActionButton)findViewById(R.id.fab_create_message);
         mSearch = (EditText) findViewById(R.id.et_search);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_login);
-        mCreateOrder.setVisibility(View.GONE);
     }
 
     private void setRecyclerAdapter() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CustomerAdapter(mOrderList, R.layout.item_order_list, mContext);
+        adapter = new CustomerAdapter(mOrderList, R.layout.list_item_customer, mContext);
         recyclerView.setAdapter(adapter);
     }
 

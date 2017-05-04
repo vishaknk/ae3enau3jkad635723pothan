@@ -1,6 +1,7 @@
 package info.vnk.billex.network;
 
 import info.vnk.billex.model.customer.CustomerResultModel;
+import info.vnk.billex.model.customer.PostMainCustomerModel;
 import info.vnk.billex.model.navigation.ResultModel;
 import info.vnk.billex.model.order.OrderResultModel;
 import info.vnk.billex.model.order.PostMainOrderModel;
@@ -32,4 +33,7 @@ public interface ApiInterface {
 
     @POST("newOrder")
     Call<PostOrderResultModel> postOrder(@Body PostMainOrderModel data);
+
+    @POST("newCustomer")
+    Call<PostMainCustomerModel> postCustomer(@Body PostMainCustomerModel data);
 }

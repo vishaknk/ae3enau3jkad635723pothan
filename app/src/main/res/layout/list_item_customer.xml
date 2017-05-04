@@ -9,36 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:paddingLeft="5dp"
-        android:paddingStart="5dp"
-        android:paddingRight="5dp"
-        android:paddingEnd="5dp">
+        android:paddingStart="5dp">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:textSize="20sp"
+            android:layout_weight="1"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Onion"
             android:textColor="@color/colorAccent"/>
-
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="0.8"
-            android:gravity="right"
-            android:textSize="16sp"
-            tools:text="200 Rs" />
     </LinearLayout>
 
 
@@ -48,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:textSize="16sp"
         tools:text="Arun"
         android:paddingLeft="5dp"
@@ -69,18 +55,18 @@
         android:id="@+id/tv_delivery_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:textSize="14sp"
         tools:text="Delivery Date"
         android:paddingLeft="5dp"
-        android:paddingStart="5dp"/>
+        android:paddingStart="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:layout_marginTop="5dp"/>
 
 </LinearLayout>

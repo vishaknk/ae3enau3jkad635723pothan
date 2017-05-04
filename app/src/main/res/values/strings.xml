@@ -31,4 +31,13 @@
     <string name="order_delete">Are you sure want to delete the product</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="hint_accode">ACCCODE</string>
+    <string name="hint_head">HEAD</string>
+    <string name="hint_agcode">AGCODE</string>
+    <string name="hint_address1">Address 1</string>
+    <string name="hint_address2">Address 2</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_tin">TIN</string>
+    <string name="hint_creditDays">Credit days</string>
+    <string name="add_customer">Add Customer</string>
 </resources>

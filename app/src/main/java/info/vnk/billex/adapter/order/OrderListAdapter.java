@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import info.vnk.billex.R;
 import info.vnk.billex.model.order.OrderListModel;
+import info.vnk.billex.utilities.General;
 
 /**
  * Created by priyesh on 22/04/17.
@@ -65,12 +66,36 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     @Override
     public void onBindViewHolder(OrderViewHolder holder, final int position) {
 
-        holder.name.setText(orderModel.get(position).getOrderId());
-        holder.customerName.setText(orderModel.get(position).getCustomerName());
-        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getTotalAmount());
-        holder.orderDate.setText("Ordered Date : " + orderModel.get(position).getDateOfOrder());
-        holder.deliveryDate.setText("Deliver Date : " + orderModel.get(position).getDeliveryDate());
-
+        if(General.isNullOrEmpty(orderModel.get(position).getOrderId())){
+            holder.name.setVisibility(View.GONE);
+        }else{
+            holder.name.setVisibility(View.VISIBLE);
+            holder.name.setText(orderModel.get(position).getOrderId());
+        }
+        if(General.isNullOrEmpty(orderModel.get(position).getCustomerName())){
+            holder.customerName.setVisibility(View.GONE);
+        }else{
+            holder.customerName.setVisibility(View.VISIBLE);
+            holder.customerName.setText(orderModel.get(position).getCustomerName());
+        }
+        if(General.isNullOrEmpty(orderModel.get(position).getTotalAmount())){
+            holder.price.setVisibility(View.GONE);
+        }else{
+            holder.price.setVisibility(View.VISIBLE);
+            holder.price.setText(context.getResources().getString(R.string.rupees)+  " " + orderModel.get(position).getTotalAmount());
+        }
+        if(General.isNullOrEmpty(orderModel.get(position).getDateOfOrder())){
+            holder.orderDate.setVisibility(View.GONE);
+        }else{
+            holder.orderDate.setVisibility(View.VISIBLE);
+            holder.orderDate.setText("Ordered Date : " + orderModel.get(position).getDateOfOrder());
+        }
+        if(General.isNullOrEmpty(orderModel.get(position).getDeliveryDate())){
+            holder.deliveryDate.setVisibility(View.GONE);
+        }else{
+            holder.deliveryDate.setVisibility(View.VISIBLE);
+            holder.deliveryDate.setText("Deliver Date : " + orderModel.get(position).getDeliveryDate());
+        }
 
     }
 

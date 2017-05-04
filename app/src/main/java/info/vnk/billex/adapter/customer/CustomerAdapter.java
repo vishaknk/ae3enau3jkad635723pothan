@@ -14,6 +14,7 @@ import java.util.List;
 
 import info.vnk.billex.R;
 import info.vnk.billex.model.customer.CustomerModel;
+import info.vnk.billex.utilities.General;
 
 /**
  * Created by priyesh on 25/04/17.
@@ -43,7 +44,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             super(v);
             name = (TextView) v.findViewById(R.id.tv_name);
             customerName = (TextView) v.findViewById(R.id.tv_custmer_name);
-            price = (TextView) v.findViewById(R.id.tv_price);
             phone = (TextView) v.findViewById(R.id.tv_ordered_date);
             email = (TextView) v.findViewById(R.id.tv_delivery_date);
         }
@@ -67,9 +67,21 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public void onBindViewHolder(CustomerViewHolder holder, final int position) {
 
-        holder.name.setText(orderModel.get(position).getCustName());
-        holder.customerName.setText(orderModel.get(position).getCustAddress());
-        holder.price.setVisibility(View.GONE);
+        if(General.isNullOrEmpty(orderModel.get(position).getCustName())){
+            holder.name.setVisibility(View.GONE);
+        }else{
+            holder.name.setVisibility(View.VISIBLE);
+            holder.name.setText(orderModel.get(position).getCustName());
+        }
+
+        if(General.isNullOrEmpty(orderModel.get(position).getCustAddress())){
+            holder.customerName.setVisibility(View.VISIBLE);
+        }else{
+            holder.customerName.setVisibility(View.VISIBLE);
+            holder.customerName.setText(orderModel.get(position).getCustAddress());
+        }
+
+
 //        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
         if(orderModel.get(position).getCustPhone() != null && !orderModel.get(position).getCustPhone().equals("")) {
             holder.phone.setVisibility(View.VISIBLE);
