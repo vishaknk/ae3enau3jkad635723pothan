@@ -22,7 +22,8 @@
         <activity
             android:name=".activity.main.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
 
         <activity
             android:name=".activity.main.AboutActivity"
