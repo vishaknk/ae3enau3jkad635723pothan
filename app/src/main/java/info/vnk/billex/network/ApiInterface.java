@@ -6,7 +6,9 @@ import info.vnk.billex.model.navigation.ResultModel;
 import info.vnk.billex.model.order.OrderResultModel;
 import info.vnk.billex.model.order.PostMainOrderModel;
 import info.vnk.billex.model.order.PostOrderResultModel;
+import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.model.payment.PaymentResultModel;
+import info.vnk.billex.model.payment.PostPaymentModel;
 import info.vnk.billex.model.product.ProductResultModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -40,4 +42,9 @@ public interface ApiInterface {
 
     @GET("paymentDetails")
     Call<PaymentResultModel> getPayment(@Query("customer_id")String custId);
+    @POST("addPayment")
+    Call<PostPaymentModel> postPayment(@Body PostPaymentModel payment);
+
+    @GET("deletePayment")
+    Call<PaymentDelete> deletePayment(@Query("payment_id") String mCustomerId);
 }

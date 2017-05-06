@@ -16,7 +16,14 @@ import java.util.List;
 import info.vnk.billex.PaymentPreviewDialog;
 import info.vnk.billex.R;
 import info.vnk.billex.model.customer.CustomerModel;
+import info.vnk.billex.model.payment.PaymentDelete;
+import info.vnk.billex.network.ApiClient;
+import info.vnk.billex.network.ApiInterface;
 import info.vnk.billex.utilities.General;
+import me.drakeet.materialdialog.MaterialDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by priyesh on 05/05/17.
@@ -30,6 +37,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
     private int rowLayout;
     private Context context;
     private Filter filter;
+    private MaterialDialog mMaterialDialog;
 
     public Filter getFilter() {
         if (filter == null) {
@@ -95,11 +103,47 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mMaterialDialog = new MaterialDialog(context)
+                        .setTitle(R.string.payment)
+                        .setMessage(R.string.payment_delete)
+                        .setPositiveButton(R.string.yes, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CalPaymentDeleteApi(String.valueOf(orderModel.get(position).getId()),position);
+                                mMaterialDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                                return;
+                            }
+                        });
+                mMaterialDialog.show();
             }
         });
 
 
+    }
+
+    private void CalPaymentDeleteApi(String mCustomerId, final int position) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<PaymentDelete> call = apiService.deletePayment(mCustomerId);
+        call.enqueue(new Callback<PaymentDelete>() {
+            @Override
+            public void onResponse(Call<PaymentDelete> call, Response<PaymentDelete> response) {
+                orderModel.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, orderModel.size());
+                General.showToast(context,response.message());
+            }
+
+            @Override
+            public void onFailure(Call<PaymentDelete> call, Throwable t) {
+                General.showToast(context,"Please try again later...");
+            }
+        });
     }
 
     @Override
