@@ -136,7 +136,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
                 orderModel.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, orderModel.size());
-                General.showToast(context,response.message());
+                General.showToast(context,response.body().getMessage());
             }
 
             @Override

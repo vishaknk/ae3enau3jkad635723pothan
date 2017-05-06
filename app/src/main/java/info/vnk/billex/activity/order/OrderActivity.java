@@ -37,7 +37,7 @@ public class OrderActivity extends BaseActivity {
     private FloatingActionButton mCreateOrder;
     private EditText mSearch;
     private List<OrderListModel>mOrderList;
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
 
 
     @Override
@@ -122,11 +122,11 @@ public class OrderActivity extends BaseActivity {
     }
 
 
-    public void setProgressBarVisible() {
+    public static void setProgressBarVisible() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    public void setProgressBarHide() {
+    public static void setProgressBarHide() {
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 

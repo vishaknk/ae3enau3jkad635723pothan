@@ -40,43 +40,70 @@
             android:textSize="16sp"
             tools:text="200 Rs" />
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tv_custmer_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:textSize="16sp"
-        tools:text="Arun"
-        android:paddingLeft="5dp"
-        android:paddingStart="5dp"/>
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-    <TextView
-        android:id="@+id/tv_ordered_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        tools:text="Order Date"
-        android:paddingLeft="5dp"
-        android:paddingStart="5dp"/>
 
-    <TextView
-        android:id="@+id/tv_delivery_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        tools:text="Delivery Date"
-        android:paddingLeft="5dp"
-        android:paddingStart="5dp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.9">
+
+
+            <TextView
+                android:id="@+id/tv_custmer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                tools:text="Arun"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_ordered_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="Order Date"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_delivery_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="Delivery Date"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="0.1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_delete_forever_24dp"
+                android:id="@+id/iv_cancelOrder"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

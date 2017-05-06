@@ -47,4 +47,6 @@ public interface ApiInterface {
 
     @GET("deletePayment")
     Call<PaymentDelete> deletePayment(@Query("payment_id") String mCustomerId);
+    @GET("cancelOrder")
+    Call<PaymentDelete> cancelOrder(@Query("order_id") String order_Id);
 }

@@ -7,12 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import info.vnk.billex.R;
+import info.vnk.billex.activity.order.OrderActivity;
 import info.vnk.billex.model.order.OrderListModel;
+import info.vnk.billex.model.payment.PaymentDelete;
+import info.vnk.billex.network.ApiClient;
+import info.vnk.billex.network.ApiInterface;
 import info.vnk.billex.utilities.General;
+import me.drakeet.materialdialog.MaterialDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by priyesh on 22/04/17.
@@ -26,6 +35,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private int rowLayout;
     private Context context;
     private Filter filter;
+    private MaterialDialog mMaterialDialog;
 
     public Filter getFilter() {
         if (filter == null) {
@@ -37,6 +47,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, customerName, price, orderDate, deliveryDate;
+        ImageView cancelOrder;
 
         public OrderViewHolder(View v) {
             super(v);
@@ -45,6 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             price = (TextView) v.findViewById(R.id.tv_price);
             orderDate = (TextView) v.findViewById(R.id.tv_ordered_date);
             deliveryDate = (TextView) v.findViewById(R.id.tv_delivery_date);
+            cancelOrder = (ImageView) v.findViewById(R.id.iv_cancelOrder);
         }
     }
 
@@ -97,6 +109,31 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.deliveryDate.setText("Deliver Date : " + orderModel.get(position).getDeliveryDate());
         }
 
+        holder.cancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMaterialDialog = new MaterialDialog(context)
+                        .setTitle(R.string.order_title)
+                        .setMessage(R.string.order_delete)
+                        .setPositiveButton(R.string.yes, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                cancelOrder(orderModel.get(position).getId(),position);
+                                mMaterialDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                                return;
+                            }
+                        });
+                mMaterialDialog.show();
+
+            }
+        });
+
     }
 
     @Override
@@ -142,4 +179,26 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             notifyDataSetChanged();
         }
     }
+    private void cancelOrder(String id, final int position) {
+        OrderActivity.setProgressBarVisible();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<PaymentDelete> call = apiService.cancelOrder(id);
+        call.enqueue(new Callback<PaymentDelete>() {
+            @Override
+            public void onResponse(Call<PaymentDelete> call, Response<PaymentDelete> response) {
+                orderModel.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, orderModel.size());
+                General.showToast(context,response.body().getMessage());
+                OrderActivity.setProgressBarHide();
+            }
+
+            @Override
+            public void onFailure(Call<PaymentDelete> call, Throwable t) {
+                General.showToast(context,"Please try again later...");
+                OrderActivity.setProgressBarHide();
+            }
+        });
+    }
+
 }
