@@ -37,7 +37,7 @@ public class PaymentActivity extends BaseActivity {
     private PaymentAdapter adapter;
     private EditText mSearch;
     private List<CustomerModel> mOrderList;
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,11 +110,11 @@ public class PaymentActivity extends BaseActivity {
     }
 
 
-    public void setProgressBarVisible() {
+    public static void setProgressBarVisible() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    public void setProgressBarHide() {
+    public static void setProgressBarHide() {
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 }
