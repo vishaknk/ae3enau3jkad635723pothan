@@ -37,7 +37,9 @@
     <string name="hint_address1">Address 1</string>
     <string name="hint_address2">Address 2</string>
     <string name="hint_phone">Phone</string>
-    <string name="hint_tin">TIN</string>
+    <string name="hint_tin">Tin</string>
     <string name="hint_creditDays">Credit days</string>
     <string name="add_customer">Add Customer</string>
+    <string name="hint_name">Name</string>
+    <string name="pay">Pay</string>
 </resources>

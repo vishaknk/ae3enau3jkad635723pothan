@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import info.vnk.billex.R;
 import info.vnk.billex.activity.customer.CustomerActivity;
 import info.vnk.billex.activity.order.OrderActivity;
+import info.vnk.billex.activity.payment.PaymentActivity;
 import info.vnk.billex.activity.product.ProductListingActivity;
 import info.vnk.billex.base.BaseActivity;
 
@@ -58,6 +59,8 @@ public class HomeActivity extends BaseActivity {
         paymentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, PaymentActivity.class);
+                startActivity(intent);
             }
         });
 

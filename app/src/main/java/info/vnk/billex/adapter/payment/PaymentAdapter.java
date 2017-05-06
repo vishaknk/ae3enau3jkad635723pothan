@@ -1,4 +1,4 @@
-package info.vnk.billex.adapter.customer;
+package info.vnk.billex.adapter.payment;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,20 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import info.vnk.billex.PaymentPreviewDialog;
 import info.vnk.billex.R;
 import info.vnk.billex.model.customer.CustomerModel;
 import info.vnk.billex.utilities.General;
 
 /**
- * Created by priyesh on 25/04/17.
+ * Created by priyesh on 05/05/17.
  */
 
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> implements Filterable {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.CustomerViewHolder> implements Filterable {
 
     private List<CustomerModel> orderModel = new ArrayList<>();
     private List<CustomerModel> filteredList;
@@ -38,18 +40,19 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     public static class CustomerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, phone, email;
+        TextView name, customerName, pay;
+        ImageView delete;
 
         public CustomerViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.tv_name);
             customerName = (TextView) v.findViewById(R.id.tv_custmer_name);
-            phone = (TextView) v.findViewById(R.id.tv_ordered_date);
-            email = (TextView) v.findViewById(R.id.tv_delivery_date);
+            pay = (TextView) v.findViewById(R.id.tv_pay);
+            delete = (ImageView) v.findViewById(R.id.iv_delete);
         }
     }
 
-    public CustomerAdapter(List<CustomerModel> orderList, int rowLayout, Context context) {
+    public PaymentAdapter(List<CustomerModel> orderList, int rowLayout, Context context) {
         this.orderModel = orderList;
         this.duplicateList = orderList;
         this.filteredList = orderList;
@@ -60,7 +63,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public CustomerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new CustomerViewHolder(view);
+        return new PaymentAdapter.CustomerViewHolder(view);
     }
 
 
@@ -81,20 +84,20 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             holder.customerName.setText(orderModel.get(position).getCustAddress());
         }
 
+        holder.pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PaymentPreviewDialog mDialog = new PaymentPreviewDialog(context,String.valueOf(orderModel.get(position).getId()));
+                mDialog.show();
+            }
+        });
 
-//        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
-        if(orderModel.get(position).getCustPhone() != null && !orderModel.get(position).getCustPhone().equals("")) {
-            holder.phone.setVisibility(View.VISIBLE);
-            holder.phone.setText("Phone : " + orderModel.get(position).getCustPhone());
-        }else{
-            holder.phone.setVisibility(View.GONE);
-        }
-        if(orderModel.get(position).getCustEmail() != null && !orderModel.get(position).getCustEmail().equals("")) {
-            holder.email.setVisibility(View.VISIBLE);
-            holder.email.setText("Email : " + orderModel.get(position).getCustEmail());
-        }else{
-            holder.email.setVisibility(View.GONE);
-        }
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
     }

@@ -75,6 +75,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".activity.payment.PaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"></activity>
+
     </application>
 
 </manifest>

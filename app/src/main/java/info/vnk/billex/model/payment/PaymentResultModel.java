@@ -1,4 +1,4 @@
-package info.vnk.billex.model.order;
+package info.vnk.billex.model.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,14 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Created by priyesh on 25/04/17.
+ * Created by priyesh on 06/05/17.
  */
+
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class OrderResultModel {
-
-
+public class PaymentResultModel {
     @JsonProperty("result")
-    private List<OrderListModel> result;
+    private List<PaymentDetails> result;
 
     @JsonProperty("message")
     private String message;
@@ -37,11 +36,11 @@ public class OrderResultModel {
         this.status = status;
     }
 
-    public List<OrderListModel> getResult() {
+    public List<PaymentDetails> getResult() {
         return result;
     }
 
-    public void setResult(List<OrderListModel> result) {
+    public void setResult(List<PaymentDetails> result) {
         this.result = result;
     }
 }

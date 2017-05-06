@@ -1,6 +1,7 @@
 package info.vnk.billex.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by priyesh on 05/05/17.
@@ -8,29 +9,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class PostCustomerModel {
-    private String accCode;
-    private String head;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("staff_id")
+    private String staff_id;
+    @JsonProperty("address")
     private String address;
-    private String agcode;
+    @JsonProperty("phone")
     private String phone;
+    @JsonProperty("tin")
     private String tin;
+    @JsonProperty("credit_days")
     private String creditDays;
-
-    public String getAccCode() {
-        return accCode;
-    }
-
-    public void setAccCode(String accCode) {
-        this.accCode = accCode;
-    }
-
-    public String getHead() {
-        return head;
-    }
-
-    public void setHead(String head) {
-        this.head = head;
-    }
+    @JsonProperty("message")
+    private String message;
 
     public String getAddress() {
         return address;
@@ -38,14 +30,6 @@ public class PostCustomerModel {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getAgcode() {
-        return agcode;
-    }
-
-    public void setAgcode(String agcode) {
-        this.agcode = agcode;
     }
 
     public String getPhone() {
@@ -70,5 +54,29 @@ public class PostCustomerModel {
 
     public void setCreditDays(String creditDays) {
         this.creditDays = creditDays;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStaff_id() {
+        return staff_id;
+    }
+
+    public void setStaff_id(String staff_id) {
+        this.staff_id = staff_id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
