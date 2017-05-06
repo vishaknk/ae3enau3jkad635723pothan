@@ -1,6 +1,7 @@
 package info.vnk.billex.adapter.payment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.vnk.billex.PaymentPreviewDialog;
 import info.vnk.billex.R;
+import info.vnk.billex.activity.payment.PaymentDetailActivity;
 import info.vnk.billex.model.customer.CustomerModel;
 import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.network.ApiClient;
@@ -25,6 +26,8 @@ import me.drakeet.materialdialog.MaterialDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static info.vnk.billex.utilities.Constants.CUSTOMER_ID;
 
 /**
  * Created by priyesh on 05/05/17.
@@ -98,8 +101,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
         holder.pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PaymentPreviewDialog mDialog = new PaymentPreviewDialog(context,String.valueOf(orderModel.get(position).getId()));
-                mDialog.show();
+                Intent intent = new Intent(context, PaymentDetailActivity.class);
+                intent.putExtra(CUSTOMER_ID,String.valueOf(orderModel.get(position).getId()));
+                context.startActivity(intent);
             }
         });
 

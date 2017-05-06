@@ -113,6 +113,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.deliveryDate.setText("Deliver Date : " + orderModel.get(position).getDeliveryDate());
         }
 
+        if(orderModel.get(position).getStatus().equals("0")){
+            holder.cancelOrder.setVisibility(View.GONE);
+        }else{
+            holder.cancelOrder.setVisibility(View.VISIBLE);
+        }
+
         holder.cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

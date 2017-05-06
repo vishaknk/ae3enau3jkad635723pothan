@@ -18,4 +18,6 @@ public class Constants {
     public static String MOBILE = "mobile";
     public static String mSession = "session_id";
     public static String mUserId = "user_id";
+
+    public static final String CUSTOMER_ID = "customer_id";
 }
