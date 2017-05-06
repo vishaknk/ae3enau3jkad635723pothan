@@ -64,7 +64,8 @@
             android:gravity="right"
             android:textColor="@color/cardview_dark_background"
             android:textSize="14sp"
-            tools:text="MRP" />
+            tools:text="MRP"
+            android:layout_marginRight="10dp"/>
     </LinearLayout>
 
     <TextView
