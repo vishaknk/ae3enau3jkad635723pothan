@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -73,14 +74,18 @@ public class PaymentPreviewDialog extends Dialog {
     }
 
     private void setPaymentPreview(List<PaymentDetails> mPaymentList) {
-        String summary =  mPaymentList.get(0).getCust_name() + " has "
-                + mPaymentList.get(0).getAmount() + " as ";
-        if(mPaymentList.get(0).getType().equals("C")){
+        String summary =  mPaymentList.get(0).getCust_name() + " have sum of "
+                + "<b>" + mPaymentList.get(0).getAmount() + "</b>" + " as ";
+        if(mPaymentList.get(0).getType().equals("CREDIT")){
             summary =  summary + " Credit balance.";
         }else{
             summary =  summary + " Debit balance. Do you want to pay now?";
         }
-        mSummary.setText(summary);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            mSummary.setText(Html.fromHtml(summary,Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            mSummary.setText(Html.fromHtml(summary));
+        }
 
     }
 
