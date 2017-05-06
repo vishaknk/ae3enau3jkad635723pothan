@@ -1,9 +1,11 @@
 package info.vnk.billex.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by Visak on 24/04/17.
  */
-
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class ProductModel {
 
     public static final int DEFAULT_QUANTITY = 1;
@@ -11,7 +13,7 @@ public class ProductModel {
 
     private String pdtName;
 
-    private String pdtCode, mrp, purPrice, price1, quantity = "1", landingCost;
+    private String pdtCode, mrp, purPrice, price1, quantity = "1", landingCost, tax, amount_tax;
 
     public int getPdtId() {
         return pdtId;
@@ -75,5 +77,21 @@ public class ProductModel {
 
     public void setLandingCost(String landingCost) {
         this.landingCost = landingCost;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getAmount_tax() {
+        return amount_tax;
+    }
+
+    public void setAmount_tax(String amount_tax) {
+        this.amount_tax = amount_tax;
     }
 }
