@@ -1,6 +1,5 @@
 package info.vnk.billex.adapter.payment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import java.util.List;
 
 import info.vnk.billex.PaymentPreviewDialog;
 import info.vnk.billex.R;
-import info.vnk.billex.activity.payment.PaymentActivity;
 import info.vnk.billex.model.customer.CustomerModel;
 import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.network.ApiClient;
@@ -38,9 +37,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
     private List<CustomerModel> duplicateList;
     private int rowLayout;
     private Context context;
-    private Activity mActivity;
     private Filter filter;
     private MaterialDialog mMaterialDialog;
+    private ProgressBar mProgressBar;
 
     public Filter getFilter() {
         if (filter == null) {
@@ -63,13 +62,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
         }
     }
 
-    public PaymentAdapter(List<CustomerModel> orderList, int rowLayout, Context context) {
+    public PaymentAdapter(List<CustomerModel> orderList, int rowLayout, Context context, ProgressBar mProgressBar) {
         this.orderModel = orderList;
         this.duplicateList = orderList;
         this.filteredList = orderList;
         this.rowLayout = rowLayout;
         this.context = context;
-        mActivity = new PaymentActivity();
+        this.mProgressBar = mProgressBar;
     }
 
     @Override
@@ -132,7 +131,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
     }
 
     private void CalPaymentDeleteApi(String mCustomerId, final int position) {
-        PaymentActivity.setProgressBarVisible();
+        mProgressBar.setVisibility(View.VISIBLE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<PaymentDelete> call = apiService.deletePayment(mCustomerId);
         call.enqueue(new Callback<PaymentDelete>() {
@@ -142,13 +141,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, orderModel.size());
                 General.showToast(context,response.body().getMessage());
-                PaymentActivity.setProgressBarHide();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<PaymentDelete> call, Throwable t) {
                 General.showToast(context,"Please try again later...");
-                PaymentActivity.setProgressBarHide();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

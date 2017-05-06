@@ -105,7 +105,7 @@ public class PaymentActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PaymentAdapter(mOrderList, R.layout.list_item_payment, mContext);
+        adapter = new PaymentAdapter(mOrderList, R.layout.list_item_payment, mContext,mProgressBar);
         recyclerView.setAdapter(adapter);
     }
 

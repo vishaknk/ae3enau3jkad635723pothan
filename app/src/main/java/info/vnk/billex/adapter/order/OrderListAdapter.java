@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import info.vnk.billex.R;
-import info.vnk.billex.activity.order.OrderActivity;
 import info.vnk.billex.model.order.OrderListModel;
 import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.network.ApiClient;
@@ -36,6 +38,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private Context context;
     private Filter filter;
     private MaterialDialog mMaterialDialog;
+    private ProgressBar mProgressBar;
 
     public Filter getFilter() {
         if (filter == null) {
@@ -60,12 +63,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         }
     }
 
-    public OrderListAdapter(List<OrderListModel> orderList, int rowLayout, Context context) {
+    public OrderListAdapter(List<OrderListModel> orderList, int rowLayout, Context context, ProgressBar mProgressBar) {
         this.orderModel = orderList;
         this.duplicateList = orderList;
         this.filteredList = orderList;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.mProgressBar = mProgressBar;
     }
 
     @Override
@@ -180,7 +184,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         }
     }
     private void cancelOrder(String id, final int position) {
-        OrderActivity.setProgressBarVisible();
+        mProgressBar.setVisibility(View.VISIBLE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<PaymentDelete> call = apiService.cancelOrder(id);
         call.enqueue(new Callback<PaymentDelete>() {
@@ -190,13 +194,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, orderModel.size());
                 General.showToast(context,response.body().getMessage());
-                OrderActivity.setProgressBarHide();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<PaymentDelete> call, Throwable t) {
                 General.showToast(context,"Please try again later...");
-                OrderActivity.setProgressBarHide();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

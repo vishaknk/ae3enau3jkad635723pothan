@@ -117,7 +117,7 @@ public class OrderActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_prospect);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new OrderListAdapter(mOrderList, R.layout.item_order_list, mContext);
+        adapter = new OrderListAdapter(mOrderList, R.layout.item_order_list, mContext, mProgressBar);
         recyclerView.setAdapter(adapter);
     }
 
