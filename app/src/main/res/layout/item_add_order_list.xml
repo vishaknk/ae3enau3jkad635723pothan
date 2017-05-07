@@ -53,6 +53,14 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:text="@string/price" />
+                <EditText
+                    android:id="@+id/et_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:hint="@string/discount"
+                    android:inputType="numberDecimal"/>
             </LinearLayout>
 
             <LinearLayout

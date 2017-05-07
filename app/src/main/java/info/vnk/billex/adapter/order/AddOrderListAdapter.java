@@ -40,7 +40,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
     @Override
     public void onBindViewHolder(OrderListViewHolder holder, final int position) {
         holder.productName.setText(orderListModel.get(position).getPdt_name());
-        holder.price.setText(orderListModel.get(position).getPdt_total_amnt());
+        holder.price.setText(orderListModel.get(position).getAmount_tax());
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override

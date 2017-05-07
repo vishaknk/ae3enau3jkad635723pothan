@@ -44,4 +44,5 @@
     <string name="pay">Pay</string>
     <string name="payment_details">Are you sure you want to make payment?</string>
     <string name="payment_delete">Are you sure want to delete?</string>
+    <string name="discount">Discount</string>
 </resources>

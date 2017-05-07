@@ -24,6 +24,9 @@ public class PostProductModel {
     @JsonProperty("pdt_discount")
     String pdt_discount;
 
+    @JsonProperty("amount_tax")
+    private String amount_tax = "";
+
     @JsonProperty("updated_date")
     String updated_date = "";
 
@@ -74,5 +77,13 @@ public class PostProductModel {
 
     public void setUpdated_date(String updated_date) {
         this.updated_date = updated_date;
+    }
+
+    public String getAmount_tax() {
+        return amount_tax;
+    }
+
+    public void setAmount_tax(String amount_tax) {
+        this.amount_tax = amount_tax;
     }
 }
