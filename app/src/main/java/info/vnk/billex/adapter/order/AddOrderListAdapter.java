@@ -2,9 +2,12 @@ package info.vnk.billex.adapter.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
     }
 
     @Override
-    public void onBindViewHolder(OrderListViewHolder holder, final int position) {
+    public void onBindViewHolder(final OrderListViewHolder holder, final int position) {
         holder.productName.setText(orderListModel.get(position).getPdt_name());
         holder.price.setText(orderListModel.get(position).getAmount_tax());
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
@@ -68,6 +71,28 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
                 orderListModel.get(position).setPdt_qty("" + orderListener.quantityClick(quantity));
             }
         });
+        holder.mDiscount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderListener.discountAdded(position, holder.mDiscount.getText().toString());
+            }
+        });
+        holder.mDiscount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                orderListener.discountAdded(position, charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
     }
 
     @Override
@@ -83,6 +108,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
 
         TextView productName, quantity, price, btnMinus, btnPlus;
         ImageView btnDelete;
+        EditText mDiscount;
         LinearLayout rowItem;
 
         public OrderListViewHolder(View v) {
@@ -94,6 +120,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
             btnMinus = (TextView) v.findViewById(R.id.tv_minus);
             btnPlus = (TextView) v.findViewById(R.id.tv_plus);
             btnDelete = (ImageView) v.findViewById(R.id.iv_delete);
+            mDiscount = (EditText) v.findViewById(R.id.et_discount);
         }
     }
 }

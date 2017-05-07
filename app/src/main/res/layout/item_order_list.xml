@@ -89,6 +89,17 @@
                 tools:text="Delivery Date"
                 android:paddingLeft="5dp"
                 android:paddingStart="5dp"/>
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="Discount :"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"

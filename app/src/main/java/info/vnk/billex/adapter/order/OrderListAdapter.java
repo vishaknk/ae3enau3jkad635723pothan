@@ -49,7 +49,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, price, orderDate, deliveryDate;
+        TextView name, customerName, price, orderDate, deliveryDate, discount;
         ImageView cancelOrder;
 
         public OrderViewHolder(View v) {
@@ -59,6 +59,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             price = (TextView) v.findViewById(R.id.tv_price);
             orderDate = (TextView) v.findViewById(R.id.tv_ordered_date);
             deliveryDate = (TextView) v.findViewById(R.id.tv_delivery_date);
+            discount = (TextView) v.findViewById(R.id.tv_discount);
             cancelOrder = (ImageView) v.findViewById(R.id.iv_cancelOrder);
         }
     }
@@ -111,6 +112,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         }else{
             holder.deliveryDate.setVisibility(View.VISIBLE);
             holder.deliveryDate.setText("Deliver Date : " + orderModel.get(position).getDeliveryDate());
+        }
+
+        if(General.isNullOrEmpty(orderModel.get(position).getDiscount())){
+            holder.discount.setVisibility(View.GONE);
+        }else{
+            holder.discount.setVisibility(View.VISIBLE);
+            holder.discount.setText("Discount : " + context.getResources().getString(R.string.rupees)+  " " + orderModel.get(position).getDiscount());
         }
 
         if(orderModel.get(position).getStatus().equals("0")){

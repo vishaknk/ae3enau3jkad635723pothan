@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/unit" />
+                    android:text="@string/price" />
 
                 <TextView
                     android:id="@+id/tv_price"
@@ -60,7 +60,8 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:hint="@string/discount"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:clickable="true"/>
             </LinearLayout>
 
             <LinearLayout

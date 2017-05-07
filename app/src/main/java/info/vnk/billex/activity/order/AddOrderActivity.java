@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -101,6 +102,8 @@ public class AddOrderActivity extends BaseActivity {
         customerText = (EditText) viewOrder.findViewById(R.id.et_select_customer);
         dateOfOrder = (EditText) viewOrder.findViewById(R.id.et_date_of_order);
         dateOfDelivery = (EditText) viewOrder.findViewById(R.id.et_date_of_delivery);
+        Calendar mCalendar = Calendar.getInstance();
+        dateOfOrder.setText(General.setDate(mCalendar));
         customerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +143,7 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_name(data.getPdtName());
                             model.setPdt_qty("" + ProductModel.DEFAULT_QUANTITY);
                             model.setPdt_total_amnt(data.getMrp());
+                            model.setAmount_tax(data.getAmount_tax());
                             model.setPdt_discount("0");
                             model.setUpdated_date("");
                             postProductModel.add(model);
@@ -212,6 +216,11 @@ public class AddOrderActivity extends BaseActivity {
                         .setPositiveButton(R.string.positive)
                         .show();*/
                 return data;
+            }
+
+            @Override
+            public void discountAdded(int position, String discount) {
+                postProductModel.get(position).setPdt_discount(discount.trim());
             }
         });
         recyclerOrder.setAdapter(adapter);
