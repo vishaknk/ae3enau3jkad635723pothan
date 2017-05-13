@@ -39,7 +39,7 @@ import static info.vnk.billex.utilities.Constants.CUSTOMER_NAME;
 
 public class PaymentDetailActivity extends BaseActivity {
 
-    private TextView mSummary, mPay;
+    private TextView mSummary, mPay, mRecent;
     private String mCustomerId, mBalance, mCustomerName;
     private String mStatus;
     private Context mContext;
@@ -61,6 +61,7 @@ public class PaymentDetailActivity extends BaseActivity {
         mCustomerName = getIntent().getStringExtra(CUSTOMER_NAME);
         mSummary = (TextView) findViewById(R.id.summary);
         mPay = (TextView) findViewById(R.id.tv_pay);
+        mRecent = (TextView) findViewById(R.id.tv_recent);
         mProgress = (ProgressBar) findViewById(R.id.pb_payment);
         mAmount = (EditText) findViewById(R.id.et_amount);
         mSpCredit = (Spinner) findViewById(R.id.sv_credit);
@@ -86,7 +87,7 @@ public class PaymentDetailActivity extends BaseActivity {
         } else {
             mSummary.setText(Html.fromHtml(summary));
         }
-//        getPaymentSummaryForCustomer();
+        getPaymentSummaryForCustomer();
 
         mPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,25 +198,20 @@ public class PaymentDetailActivity extends BaseActivity {
 
     private void setPaymentPreview(List<PaymentDetails> mPaymentList) {
         mTotalInhand= 0 ;
+        String recent = " <b>Recent Transactions : </b>";
         for(int  i = 0 ; i < mPaymentList.size(); i++){
             if(mPaymentList.get(i).getType().equals("DEBIT")) {
-                mTotalInhand = mTotalInhand - Integer.parseInt(mPaymentList.get(i).getAmount());
+                recent = recent + "<br><br>Amount " + " <b>INR : " + mPaymentList.get(i).getAmount() + "</b>"
+                        + "<font color='red'> Debited</font> On " + mPaymentList.get(i).getPay_date() + ".";
             }else{
-                mTotalInhand = mTotalInhand + Integer.parseInt(mPaymentList.get(i).getAmount());
+                recent = recent + "<br><br>Amount " + " <b>INR : " + mPaymentList.get(i).getAmount() + "</b>"
+                        + "<font color='#008000'> Credited</font> On " + mPaymentList.get(i).getPay_date() + ".";
             }
         }
-        String summary =  mPaymentList.get(0).getCust_name() + " have sum of "
-                + "<b>" + mTotalInhand + "</b>" + " as ";
-        if(mTotalInhand < 0){
-            summary =  summary + " Debit balance.";
-        }else{
-            summary =  summary + " Credit balance";
-
-        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            mSummary.setText(Html.fromHtml(summary,Html.FROM_HTML_MODE_LEGACY));
+            mRecent.setText(Html.fromHtml(recent,Html.FROM_HTML_MODE_LEGACY));
         } else {
-            mSummary.setText(Html.fromHtml(summary));
+            mRecent.setText(Html.fromHtml(recent));
         }
 
     }

@@ -10,76 +10,109 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sv_scroll">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/summary"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="left"
-            android:textSize="18sp"/>
 
-        <EditText
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/summary"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Amount"
+                    android:id="@+id/et_amount"
+                    android:layout_below="@+id/summary"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_below="@+id/et_amount"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/ll_payment">
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/sv_credit"
+                        android:layout_marginRight="10dp" />
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/sv_paymentType"
+                        android:layout_marginRight="10dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_recent"
+                    android:layout_below="@+id/ll_payment"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+
+                <ProgressBar
+                    android:id="@+id/pb_payment"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:layout_alignTop="@+id/summary"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:id="@+id/et_amount"
-            android:layout_below="@+id/summary"
-            android:inputType="numberDecimal"
-            android:paddingLeft="10dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_below="@+id/et_amount"
-            android:layout_marginTop="10dp">
-            <Spinner
-                android:layout_width="0dp"
+            android:layout_gravity="bottom"
+            android:layout_below="@id/sv_scroll"
+            android:layout_alignParentBottom="true">
+
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/sv_credit"
-                android:layout_marginRight="10dp" />
-
-            <Spinner
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/sv_paymentType"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_pay"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="20dp"
-            android:paddingStart="20dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Pay"
-            android:background="@color/colorAccent"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"/>
-
-
-        <ProgressBar
-            android:id="@+id/pb_payment"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:layout_alignTop="@+id/summary"
-            android:layout_centerHorizontal="true" />
-
+                android:id="@+id/tv_pay"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:paddingStart="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="Pay"
+                android:background="@color/colorAccent"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
