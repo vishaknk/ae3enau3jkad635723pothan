@@ -20,4 +20,6 @@ public class Constants {
     public static String mUserId = "user_id";
 
     public static final String CUSTOMER_ID = "customer_id";
+    public static final String CUSTOMER_NAME = "customer_name";
+    public static final String BALANCE = "balance";
 }

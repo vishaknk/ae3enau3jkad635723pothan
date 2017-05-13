@@ -27,7 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static info.vnk.billex.utilities.Constants.BALANCE;
 import static info.vnk.billex.utilities.Constants.CUSTOMER_ID;
+import static info.vnk.billex.utilities.Constants.CUSTOMER_NAME;
 
 /**
  * Created by priyesh on 05/05/17.
@@ -88,14 +90,14 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
             holder.name.setVisibility(View.GONE);
         }else{
             holder.name.setVisibility(View.VISIBLE);
-            holder.name.setText(orderModel.get(position).getCustName());
+            holder.name.setText(General.capitalize(orderModel.get(position).getCustName()));
         }
 
         if(General.isNullOrEmpty(orderModel.get(position).getCustAddress())){
             holder.customerName.setVisibility(View.VISIBLE);
         }else{
             holder.customerName.setVisibility(View.VISIBLE);
-            holder.customerName.setText(orderModel.get(position).getCustAddress());
+            holder.customerName.setText(General.capitalize(orderModel.get(position).getCustAddress()));
         }
 
         holder.pay.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
             public void onClick(View view) {
                 Intent intent = new Intent(context, PaymentDetailActivity.class);
                 intent.putExtra(CUSTOMER_ID,String.valueOf(orderModel.get(position).getId()));
+                intent.putExtra(BALANCE,String.valueOf(orderModel.get(position).getBalance()));
+                intent.putExtra(CUSTOMER_NAME,String.valueOf(orderModel.get(position).getCustName()));
                 context.startActivity(intent);
             }
         });

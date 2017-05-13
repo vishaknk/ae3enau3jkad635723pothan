@@ -38,7 +38,8 @@
             android:layout_weight="0.8"
             android:gravity="right"
             android:textSize="16sp"
-            tools:text="200 Rs" />
+            tools:text="200 Rs"
+            android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
                 android:textSize="16sp"
                 tools:text="Arun"
                 android:paddingLeft="5dp"
@@ -106,7 +106,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="0.1"
-            android:gravity="center">
+            android:gravity="bottom|center"
+            android:layout_marginBottom="5dp">
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -19,7 +19,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:gravity="center"/>
+            android:gravity="left"
+            android:textSize="18sp"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -28,14 +29,28 @@
             android:id="@+id/et_amount"
             android:layout_below="@+id/summary"
             android:inputType="numberDecimal"
-            android:layout_toStartOf="@+id/sv_credit" />
-        <Spinner
-            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sv_credit"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/pb_payment"
-            android:layout_alignEnd="@+id/summary" />
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_below="@+id/et_amount"
+            android:layout_marginTop="10dp">
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/sv_credit"
+                android:layout_marginRight="10dp" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/sv_paymentType"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

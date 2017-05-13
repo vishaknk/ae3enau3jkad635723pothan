@@ -17,6 +17,7 @@ import java.util.List;
 import info.vnk.billex.R;
 import info.vnk.billex.adapter.order.listener.OrderListener;
 import info.vnk.billex.model.product.PostProductModel;
+import info.vnk.billex.utilities.General;
 
 /**
  * Created by Visak on 26-12-2016.
@@ -42,7 +43,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
 
     @Override
     public void onBindViewHolder(final OrderListViewHolder holder, final int position) {
-        holder.productName.setText(orderListModel.get(position).getPdt_name());
+        holder.productName.setText(General.capitalize(orderListModel.get(position).getPdt_name()));
         holder.price.setText(orderListModel.get(position).getAmount_tax());
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
