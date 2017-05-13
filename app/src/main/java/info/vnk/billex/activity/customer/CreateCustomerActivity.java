@@ -89,8 +89,7 @@ public class CreateCustomerActivity extends BaseActivity {
                 || mPhone.getText().toString().trim().equals("")
                 || mAddress1.getText().toString().trim().equals("")
                 || mAddress2.getText().toString().trim().equals("")
-                || mTin.getText().toString().trim().equals("")
-                ){
+                || mTin.getText().toString().trim().equals("")){
             General.showToast(this,"Empty Validation");
             return;
         }

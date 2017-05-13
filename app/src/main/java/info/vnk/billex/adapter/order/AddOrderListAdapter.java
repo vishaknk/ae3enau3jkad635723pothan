@@ -68,7 +68,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
             @Override
             public void onClick(View v) {
                 Long quantity = Long.parseLong(orderListModel.get(position).getPdt_qty());
-                orderListModel.get(position).setPdt_qty("" + orderListener.quantityClick(quantity));
+                orderListener.quantityClick(position, quantity);
             }
         });
         holder.mDiscount.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,6 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 orderListener.discountAdded(position, charSequence.toString());
             }
 

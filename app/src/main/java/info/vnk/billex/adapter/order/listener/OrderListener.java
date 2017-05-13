@@ -8,6 +8,6 @@ public interface OrderListener {
     public void plusClick(int position);
     public void minusClick(int position);
     public void deleteClick(int position);
-    public Long quantityClick(Long qunatity);
+    public Long quantityClick(int position, Long qunatity);
     public void discountAdded(int position, String discount);
 }

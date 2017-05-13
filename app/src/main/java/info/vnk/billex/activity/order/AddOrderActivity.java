@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import info.vnk.billex.R;
@@ -147,9 +146,7 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_discount("0");
                             model.setUpdated_date("");
                             postProductModel.add(model);
-                            Collections.reverse(postProductModel);
                         }
-
                     }
                     adapter.notifyDataSetChanged();
                 } else if(key == KEY_CUSTOMER) {
@@ -207,14 +204,29 @@ public class AddOrderActivity extends BaseActivity {
             }
 
             @Override
-            public Long quantityClick(Long quantity){
-                boolean wrapInScrollView = true;
+            public Long quantityClick(final int position, final Long quantity){
                 long data = 0;
-                /*new MaterialDialog(context)
+                final EditText contentView = new EditText(context);
+                contentView.setText("" + quantity);
+                mMaterialDialog = new MaterialDialog(context).setView(contentView)
                         .setTitle(R.string.order_title)
-                        .setContentView(R.layout.custom_view)
-                        .setPositiveButton(R.string.positive)
-                        .show();*/
+                        .setMessage(R.string.enter_discount)
+                        .setPositiveButton(R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.v(TAG,"" + contentView.getText());
+                                postProductModel.get(position).setPdt_qty("" + contentView.getText());
+                                adapter.notifyDataSetChanged();
+                                mMaterialDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                            }
+                        });
+                mMaterialDialog.show();
                 return data;
             }
 
@@ -243,7 +255,8 @@ public class AddOrderActivity extends BaseActivity {
         if(fullScreenSearch.getVisibility() == View.VISIBLE){
             fullScreenSearch.setVisibility(View.GONE);
         } else {
-            setDialogOkCancel(context);
+            if(postProductModel.size() > 0)
+                setDialogOkCancel(context);
         }
     }
 
