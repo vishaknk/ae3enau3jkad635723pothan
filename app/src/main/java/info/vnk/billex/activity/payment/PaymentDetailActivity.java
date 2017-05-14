@@ -140,6 +140,7 @@ public class PaymentDetailActivity extends BaseActivity {
             public void onResponse(Call<PostPaymentModel> call, Response<PostPaymentModel> response) {
 
                 General.showToast(mContext,response.body().getMessage());
+                setResult(RESULT_OK);
                 finish();
 
                 setProgressBarHide();
@@ -177,14 +178,12 @@ public class PaymentDetailActivity extends BaseActivity {
         call.enqueue(new Callback<PaymentResultModel>() {
             @Override
             public void onResponse(Call<PaymentResultModel> call, Response<PaymentResultModel> response) {
-                mPaymentList = response.body().getResult();
-                if(mPaymentList.size() <= 0){
-                    General.showToast(mContext,"Zero Payment");
-                    setProgressBarHide();
-                    finish();
-                    return;
+                if(response.body().getResult() != null && response.body().getResult().size() > 0) {
+                    mPaymentList = response.body().getResult();
+                    setPaymentPreview(mPaymentList);
+                }else{
+
                 }
-                setPaymentPreview(mPaymentList);
                 setProgressBarHide();
             }
 

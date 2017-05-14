@@ -1,5 +1,6 @@
 package info.vnk.billex.adapter.payment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -107,7 +108,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Customer
                 intent.putExtra(CUSTOMER_ID,String.valueOf(orderModel.get(position).getId()));
                 intent.putExtra(BALANCE,String.valueOf(orderModel.get(position).getBalance()));
                 intent.putExtra(CUSTOMER_NAME,String.valueOf(orderModel.get(position).getCustName()));
-                context.startActivity(intent);
+                ((Activity) context).startActivityForResult(intent, 1);
+
+
             }
         });
 
