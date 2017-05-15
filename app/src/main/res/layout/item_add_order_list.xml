@@ -61,7 +61,8 @@
                     android:textSize="16sp"
                     android:hint="@string/discount"
                     android:inputType="numberDecimal"
-                    android:clickable="true"/>
+                    android:focusable="false"
+                    android:clickable="false"/>
             </LinearLayout>
 
             <LinearLayout

@@ -6,6 +6,10 @@ package info.vnk.billex.utilities;
 
 public class Constants {
 
+    public static final String ORDER_ID = "order_id";
+    public static final String DOD = "date_of_delivery";
+    public static final String DOO = "date_of_order";
+    public static final String CUSTOMER_NAME = "customer_name";
     //Shared Preference for login
     public static String sp_login = "loginDetails";
 
@@ -18,6 +22,6 @@ public class Constants {
     public static String MOBILE = "mobile";
     public static String mSession = "session_id";
     public static String mUserId = "user_id";
-
+    public static final String IS_EDIT = "is_edit";
     public static final String CUSTOMER_ID = "customer_id";
 }

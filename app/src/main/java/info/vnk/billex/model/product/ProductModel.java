@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ProductModel {
 
     public static final int DEFAULT_QUANTITY = 1;
+    public static final int DEFAULT_DISCOUNT = 0;
+
     private int pdtId;
 
     private String pdtName;

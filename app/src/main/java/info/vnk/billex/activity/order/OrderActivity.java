@@ -19,6 +19,7 @@ import java.util.List;
 
 import info.vnk.billex.R;
 import info.vnk.billex.adapter.order.OrderListAdapter;
+import info.vnk.billex.adapter.order.listener.ListOrderListener;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.model.order.OrderListModel;
 import info.vnk.billex.model.order.OrderResultModel;
@@ -118,6 +119,25 @@ public class OrderActivity extends BaseActivity {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new OrderListAdapter(mOrderList, R.layout.item_order_list, mContext, mProgressBar);
+        adapter.setListOrderListener(new ListOrderListener() {
+            @Override
+            public void onEditClick(OrderListModel model) {
+                Intent intent = new Intent(OrderActivity.this, AddOrderActivity.class);
+                intent.putExtra(Constants.IS_EDIT, true);
+                intent.putExtra(Constants.CUSTOMER_ID, "" + model.getCustomerId());
+                intent.putExtra(Constants.CUSTOMER_NAME, "" + model.getCustomerName());
+                intent.putExtra(Constants.ORDER_ID, "" + model.getOrderId());
+                //Date of Delivery
+                intent.putExtra(Constants.DOD, "" + model.getDeliveryDate());
+                //Date of Order
+                intent.putExtra(Constants.DOO, "" + model.getDateOfOrder());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick() {
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

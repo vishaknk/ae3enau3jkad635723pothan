@@ -28,6 +28,8 @@ import info.vnk.billex.model.customer.CustomerResultModel;
 import info.vnk.billex.model.order.PostMainOrderModel;
 import info.vnk.billex.model.order.PostOrderModel;
 import info.vnk.billex.model.order.PostOrderResultModel;
+import info.vnk.billex.model.product.GetProductModel;
+import info.vnk.billex.model.product.GetProductResultModel;
 import info.vnk.billex.model.product.PostProductModel;
 import info.vnk.billex.model.product.ProductModel;
 import info.vnk.billex.model.product.ProductResultModel;
@@ -56,6 +58,8 @@ public class AddOrderActivity extends BaseActivity {
     private EditText dateOfDelivery, dateOfOrder, customerText;
     private static final String TAG = "AddOrderActivity";
     private MaterialDialog mMaterialDialog;
+    private String customerName, customerId, orderId, dod, doo;
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,23 @@ public class AddOrderActivity extends BaseActivity {
         toolbar = setToolbar();
         initToolbar();
         init();
+        getIntentData();
+    }
+
+    private void getIntentData() {
+        if(getIntent().hasExtra(Constants.IS_EDIT)) {
+            isEdit = getIntent().getExtras().getBoolean(Constants.IS_EDIT);
+            customerName = getIntent().getExtras().getString(Constants.CUSTOMER_NAME);
+            customerId = getIntent().getExtras().getString(Constants.CUSTOMER_ID);
+            orderId = getIntent().getExtras().getString(Constants.ORDER_ID);
+            dod = getIntent().getExtras().getString(Constants.DOD);
+            doo = getIntent().getExtras().getString(Constants.DOO);
+
+            customerText.setText(customerName);
+            dateOfDelivery.setText(General.DateFormatterMtoY(dod));
+            dateOfOrder.setText(General.DateFormatterMtoY(doo));
+            getOrderProduct();
+        }
     }
 
     public void initToolbar() {
@@ -143,9 +164,10 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_qty("" + ProductModel.DEFAULT_QUANTITY);
                             model.setPdt_total_amnt(data.getMrp());
                             model.setAmount_tax(data.getAmount_tax());
-                            model.setPdt_discount("0");
+                            model.setPdt_discount("" + ProductModel.DEFAULT_DISCOUNT);
                             model.setUpdated_date("");
                             postProductModel.add(model);
+                            //Collections.reverse(postProductModel);
                         }
                     }
                     adapter.notifyDataSetChanged();
@@ -210,7 +232,7 @@ public class AddOrderActivity extends BaseActivity {
                 contentView.setText("" + quantity);
                 mMaterialDialog = new MaterialDialog(context).setView(contentView)
                         .setTitle(R.string.order_title)
-                        .setMessage(R.string.enter_discount)
+                        .setMessage(R.string.enter_quantity)
                         .setPositiveButton(R.string.ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -231,8 +253,29 @@ public class AddOrderActivity extends BaseActivity {
             }
 
             @Override
-            public void discountAdded(int position, String discount) {
-                postProductModel.get(position).setPdt_discount(discount.trim());
+            public void discountAdded(final int position, String discount) {
+                final EditText contentView = new EditText(context);
+                contentView.setText("" + discount);
+                contentView.setFocusable(true);
+                mMaterialDialog = new MaterialDialog(context).setView(contentView)
+                        .setTitle(R.string.order_title)
+                        .setMessage(R.string.enter_discount)
+                        .setPositiveButton(R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.v(TAG,"" + contentView.getText());
+                                postProductModel.get(position).setPdt_discount("" + contentView.getText());
+                                adapter.notifyDataSetChanged();
+                                mMaterialDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                            }
+                        });
+                mMaterialDialog.show();                //adapter.notifyDataSetChanged();
             }
         });
         recyclerOrder.setAdapter(adapter);
@@ -253,10 +296,13 @@ public class AddOrderActivity extends BaseActivity {
     public void onBackPressed() {
         Log.d(TAG, "onBackPressed Called");
         if(fullScreenSearch.getVisibility() == View.VISIBLE){
-            fullScreenSearch.setVisibility(View.GONE);
+            setFullScreenSearchVisible(false);
         } else {
-            if(postProductModel.size() > 0)
+            if(postProductModel.size() != 0) {
                 setDialogOkCancel(context);
+            } else {
+                finish();
+            }
         }
     }
 
@@ -318,8 +364,35 @@ public class AddOrderActivity extends BaseActivity {
                 Toast.makeText(context, "error" + t.getLocalizedMessage(), Toast.LENGTH_LONG);
             }
         });
-
     }
+
+    private void getOrderProduct() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<GetProductResultModel> call = apiService.getOrderProduct(orderId);
+        call.enqueue(new Callback<GetProductResultModel>() {
+            @Override
+            public void onResponse(Call<GetProductResultModel> call, Response<GetProductResultModel> response) {
+                for(GetProductModel getProductModel :response.body().getResult()) {
+                    PostProductModel model = new PostProductModel();
+                    model.setPdt_id(getProductModel.getPdt_id());
+                    model.setPdt_name(getProductModel.getPdt_name());
+                    model.setPdt_qty("" + getProductModel.getPdt_qty());
+                    model.setPdt_total_amnt(getProductModel.getPdt_total_amnt());
+                    model.setAmount_tax("" + 0);
+                    model.setPdt_discount("" + getProductModel.getPdt_discount());
+                    model.setUpdated_date("" + getProductModel.getUpdated_date());
+                    postProductModel.add(model);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<GetProductResultModel> call, Throwable t) {
+                Toast.makeText(context, "error" + t.getLocalizedMessage(), Toast.LENGTH_LONG);
+            }
+        });
+    }
+
 
     // call api to fetch data
     private void getCustomerList() {
@@ -366,13 +439,22 @@ public class AddOrderActivity extends BaseActivity {
 
     public PostMainOrderModel postOrder(){
         PostOrderModel orderModel = new PostOrderModel();
-        orderModel.setCustomerId(getSeletedCustomer().getId());
+        if(isEdit){
+            orderModel.setOrderId(orderId);
+            orderModel.setCustomerId(Integer.parseInt(customerId));
+        } else {
+            orderModel.setCustomerId(getSeletedCustomer().getId());
+        }
         orderModel.setDateOfDelivery(General.DateFormatter(dateOfDelivery.getText().toString()));
         orderModel.setDateOfOrder(General.DateFormatter(dateOfOrder.getText().toString()));
         orderModel.setDiscount("0");
         orderModel.setStaffId(preferencesManager.getString(Constants.mUserId));
         orderModel.setStatus("1");
-        orderModel.setTotalAmount("");
+        int totalAmount = 0;
+        for(PostProductModel data : postProductModel){
+            totalAmount = totalAmount + Integer.parseInt(data.getPdt_total_amnt());
+        }
+        orderModel.setTotalAmount("" + totalAmount);
         orderModel.setTotalQuantity("" + postProductModel.size());
         orderModel.setUpdateDate("");
         orderModel.setListProduct(postProductModel);
@@ -384,7 +466,12 @@ public class AddOrderActivity extends BaseActivity {
     // call api to post data
     private void setOrder() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<PostOrderResultModel> call = apiService.postOrder(postOrder());
+        Call<PostOrderResultModel> call = null;
+        if(isEdit) {
+            call = apiService.editOrder(postOrder());
+        } else {
+            call = apiService.postOrder(postOrder());
+        }
         call.enqueue(new Callback<PostOrderResultModel>() {
             @Override
             public void onResponse(Call<PostOrderResultModel> call, Response<PostOrderResultModel> response) {

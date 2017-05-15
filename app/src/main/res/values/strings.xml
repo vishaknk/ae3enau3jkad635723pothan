@@ -46,4 +46,5 @@
     <string name="payment_delete">Are you sure want to delete?</string>
     <string name="discount">Discount</string>
     <string name="enter_discount">Enter the discount</string>
+    <string name="enter_quantity">Enter the quantity</string>
 </resources>

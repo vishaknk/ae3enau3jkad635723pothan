@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.vnk.billex.R;
+import info.vnk.billex.adapter.order.listener.ListOrderListener;
 import info.vnk.billex.model.order.OrderListModel;
 import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.network.ApiClient;
@@ -39,6 +40,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private Filter filter;
     private MaterialDialog mMaterialDialog;
     private ProgressBar mProgressBar;
+    private ListOrderListener listOrderListener;
 
     public Filter getFilter() {
         if (filter == null) {
@@ -50,7 +52,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, customerName, price, orderDate, deliveryDate, discount;
-        ImageView cancelOrder;
+        ImageView cancelOrder, editOrder;
 
         public OrderViewHolder(View v) {
             super(v);
@@ -61,6 +63,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             deliveryDate = (TextView) v.findViewById(R.id.tv_delivery_date);
             discount = (TextView) v.findViewById(R.id.tv_discount);
             cancelOrder = (ImageView) v.findViewById(R.id.iv_cancelOrder);
+            editOrder = (ImageView) v.findViewById(R.id.iv_edit);
         }
     }
 
@@ -148,7 +151,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                             }
                         });
                 mMaterialDialog.show();
+            }
+        });
 
+        holder.editOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getListOrderListener().onEditClick(orderModel.get(position));
             }
         });
 
@@ -219,4 +228,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         });
     }
 
+    public ListOrderListener getListOrderListener() {
+        return listOrderListener;
+    }
+
+    public void setListOrderListener(ListOrderListener listOrderListener) {
+        this.listOrderListener = listOrderListener;
+    }
 }

@@ -12,6 +12,10 @@ import info.vnk.billex.model.product.PostProductModel;
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class PostOrderModel {
+
+    @JsonProperty("order_id")
+    String orderId;
+
     @JsonProperty("cust_id")
     int customerId;
 
@@ -41,6 +45,14 @@ public class PostOrderModel {
 
     @JsonProperty("product_details")
     List<PostProductModel> listProduct;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public int getCustomerId() {
         return customerId;

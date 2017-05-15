@@ -97,7 +97,24 @@ public class General {
             dateInString = sdf.format(date);
             Log.e("dateInString", "" + dateInString);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateInString;
+    }
 
+    //convert dd MMM yyyy to yyyy MM dd format  from server
+    public static String DateFormatterMtoY(String dateValue) {
+
+        String dateInString = null;
+        try {
+            SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-mm-dd");
+            Date date = sdfs.parse(dateValue);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            dateInString = sdf.format(date);
+            Log.e("dateInString", "" + dateInString);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return dateInString;
     }

@@ -2,8 +2,6 @@ package info.vnk.billex.adapter.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +43,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
         holder.productName.setText(orderListModel.get(position).getPdt_name());
         holder.price.setText(orderListModel.get(position).getAmount_tax());
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
+        holder.mDiscount.setText(orderListModel.get(position).getPdt_discount());
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,20 +74,6 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
             @Override
             public void onClick(View view) {
                 orderListener.discountAdded(position, holder.mDiscount.getText().toString());
-            }
-        });
-        holder.mDiscount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                orderListener.discountAdded(position, charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
             }
         });
 
