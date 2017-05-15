@@ -22,13 +22,16 @@ import info.vnk.billex.model.payment.PaymentResultModel;
 import info.vnk.billex.model.payment.PostPaymentModel;
 import info.vnk.billex.network.ApiClient;
 import info.vnk.billex.network.ApiInterface;
+import info.vnk.billex.utilities.Constants;
 import info.vnk.billex.utilities.General;
 import me.drakeet.materialdialog.MaterialDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static info.vnk.billex.utilities.Constants.BALANCE;
 import static info.vnk.billex.utilities.Constants.CUSTOMER_ID;
+import static info.vnk.billex.utilities.Constants.CUSTOMER_NAME;
 
 /**
  * Created by priyesh on 06/05/17.
@@ -36,17 +39,17 @@ import static info.vnk.billex.utilities.Constants.CUSTOMER_ID;
 
 public class PaymentDetailActivity extends BaseActivity {
 
-    private TextView mSummary, mPay;
-    private String mCustomerId;
+    private TextView mSummary, mPay, mRecent;
+    private String mCustomerId, mBalance, mCustomerName;
     private String mStatus;
     private Context mContext;
     private EditText mAmount;
     private ProgressBar mProgress;
     private MaterialDialog mMaterialDialog;
-    private int mBalance = 0, mTotalInhand = 0;
+    private int mTotalInhand = 0;
     private List<PaymentDetails> mPaymentList;
-    private Spinner mSpCredit;
-    private ArrayList<String>mPreferList;
+    private Spinner mSpCredit, mSpPaymentType;
+    private ArrayList<String>mPreferList, mPaymentType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,22 +57,46 @@ public class PaymentDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_payment_detail);
         mContext = this;
         mCustomerId = getIntent().getStringExtra(CUSTOMER_ID);
+        mBalance = getIntent().getStringExtra(BALANCE);
+        mCustomerName = getIntent().getStringExtra(CUSTOMER_NAME);
         mSummary = (TextView) findViewById(R.id.summary);
         mPay = (TextView) findViewById(R.id.tv_pay);
+        mRecent = (TextView) findViewById(R.id.tv_recent);
         mProgress = (ProgressBar) findViewById(R.id.pb_payment);
         mAmount = (EditText) findViewById(R.id.et_amount);
         mSpCredit = (Spinner) findViewById(R.id.sv_credit);
+        mSpPaymentType = (Spinner) findViewById(R.id.sv_paymentType);
+        setToolbar().setTitle(mCustomerName);
+
         mPreferList = new ArrayList<>();
+        mPaymentType = new ArrayList<>();
         mPreferList.add("Credit");
         mPreferList.add("Debit");
+        mPaymentType.add("Cash");
+        mPaymentType.add("Cheque");
         ArrayAdapter adapter = new ArrayAdapter(mContext, R.layout.spinner, mPreferList);
         adapter.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter paymentAdapter = new ArrayAdapter(mContext, R.layout.spinner, mPaymentType);
+        paymentAdapter.setDropDownViewResource(R.layout.spinner_item);
         mSpCredit.setAdapter(adapter);
+        mSpPaymentType.setAdapter(paymentAdapter);
+        String summary =  " Total Balance Amount: "
+                + "<b>" + "INR." + mBalance + "</b>";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            mSummary.setText(Html.fromHtml(summary,Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            mSummary.setText(Html.fromHtml(summary));
+        }
         getPaymentSummaryForCustomer();
 
         mPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mAmount.getText().toString().trim().length() <= 0) {
+                    General.showToast(mContext, "Please Enter Valid Amount");
+                    mAmount.requestFocus();
+                    return;
+                }
                 mMaterialDialog = new MaterialDialog(mContext)
                         .setTitle(R.string.payment)
                         .setMessage(R.string.payment_details)
@@ -113,6 +140,7 @@ public class PaymentDetailActivity extends BaseActivity {
             public void onResponse(Call<PostPaymentModel> call, Response<PostPaymentModel> response) {
 
                 General.showToast(mContext,response.body().getMessage());
+                setResult(RESULT_OK);
                 finish();
 
                 setProgressBarHide();
@@ -127,29 +155,18 @@ public class PaymentDetailActivity extends BaseActivity {
     }
 
     private PostPaymentModel preparepayment() {
-        int amount = 0;
         PostPaymentModel model = new PostPaymentModel();
-        if(mPaymentList == null || mPaymentList.size() <= 0) {
-            setProgressBarHide();
-            return model;
-        }
         model.setAmount(mAmount.getText().toString().trim());
         model.setCust_id(mCustomerId);
         int payamount = Integer.parseInt(mAmount.getText().toString().trim());
-        int inHand = mTotalInhand;
-        if(payamount - inHand > 0){
-            mBalance =  payamount - inHand;
-            mStatus = "C";
-        }else{
-            mBalance =  inHand - payamount;
-            mStatus = "D";
-        }
         model.setPaid_date(General.getCurrentdate());
         model.setAmount(String.valueOf(payamount));
         if(mPreferList.get(mSpCredit.getSelectedItemPosition()).equals("Credit"))
             model.setType("C");
         else
             model.setType("D");
+        model.setStaff_id(preferencesManager.getString(Constants.mUserId));
+        model.setPaymentType(mPaymentType.get(mSpPaymentType.getSelectedItemPosition()).trim().toString().toLowerCase());
         return model;
 
     }
@@ -161,14 +178,12 @@ public class PaymentDetailActivity extends BaseActivity {
         call.enqueue(new Callback<PaymentResultModel>() {
             @Override
             public void onResponse(Call<PaymentResultModel> call, Response<PaymentResultModel> response) {
-                mPaymentList = response.body().getResult();
-                if(mPaymentList.size() <= 0){
-                    General.showToast(mContext,"Zero Payment");
-                    setProgressBarHide();
-                    finish();
-                    return;
+                if(response.body().getResult() != null && response.body().getResult().size() > 0) {
+                    mPaymentList = response.body().getResult();
+                    setPaymentPreview(mPaymentList);
+                }else{
+
                 }
-                setPaymentPreview(mPaymentList);
                 setProgressBarHide();
             }
 
@@ -182,25 +197,20 @@ public class PaymentDetailActivity extends BaseActivity {
 
     private void setPaymentPreview(List<PaymentDetails> mPaymentList) {
         mTotalInhand= 0 ;
+        String recent = " <b>Recent Transactions : </b>";
         for(int  i = 0 ; i < mPaymentList.size(); i++){
             if(mPaymentList.get(i).getType().equals("DEBIT")) {
-                mTotalInhand = mTotalInhand - Integer.parseInt(mPaymentList.get(i).getAmount());
+                recent = recent + "<br><br>Amount " + " <b>INR : " + mPaymentList.get(i).getAmount() + "</b>"
+                        + "<font color='red'> Debited</font> On " + mPaymentList.get(i).getPay_date() + ".";
             }else{
-                mTotalInhand = mTotalInhand + Integer.parseInt(mPaymentList.get(i).getAmount());
+                recent = recent + "<br><br>Amount " + " <b>INR : " + mPaymentList.get(i).getAmount() + "</b>"
+                        + "<font color='#008000'> Credited</font> On " + mPaymentList.get(i).getPay_date() + ".";
             }
         }
-        String summary =  mPaymentList.get(0).getCust_name() + " have sum of "
-                + "<b>" + mTotalInhand + "</b>" + " as ";
-        if(mTotalInhand < 0){
-            summary =  summary + " Debit balance.";
-        }else{
-            summary =  summary + " Credit balance";
-
-        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            mSummary.setText(Html.fromHtml(summary,Html.FROM_HTML_MODE_LEGACY));
+            mRecent.setText(Html.fromHtml(recent,Html.FROM_HTML_MODE_LEGACY));
         } else {
-            mSummary.setText(Html.fromHtml(summary));
+            mRecent.setText(Html.fromHtml(recent));
         }
 
     }

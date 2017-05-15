@@ -17,22 +17,23 @@ import info.vnk.billex.utilities.Preferences;
 
 public class BaseActivity extends AppCompatActivity {
     protected PreferencesManager preferencesManager;
+    private Toolbar mToolBar;
 
     protected Toolbar setToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.app_name));
-        setSupportActionBar(toolbar);
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mToolBar.setTitle(getResources().getString(R.string.app_name));
+        setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         //toolbar.setNavigationIcon(R.drawable.ic_action_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //check whether any input is added before leaving the page and allow leave
                 finish();
             }
         });
-        return toolbar;
+        return mToolBar;
     }
 
     protected PreferencesManager setPreference(Context mContext){

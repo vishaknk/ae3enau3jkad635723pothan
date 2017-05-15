@@ -1,6 +1,7 @@
 package info.vnk.billex.activity.payment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +48,7 @@ public class PaymentActivity extends BaseActivity {
         mContext = this;
         setToolbar();
         setRecyclerAdapter();
+        getPaymentList();
     }
     // call api to fetch data
     private void getPaymentList() {
@@ -73,7 +75,6 @@ public class PaymentActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getPaymentList();
         mSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,6 +110,17 @@ public class PaymentActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1){
+            mSearch.setText("");
+            getPaymentList();
+
+        }else{
+            adapter.notifyDataSetChanged();
+        }
+    }
 
     public static void setProgressBarVisible() {
         mProgressBar.setVisibility(View.VISIBLE);

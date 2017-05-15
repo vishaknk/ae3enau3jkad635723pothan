@@ -38,7 +38,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     public static class CustomerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, phone, email;
+        TextView name, customerName, phone, email, balance;
 
         public CustomerViewHolder(View v) {
             super(v);
@@ -46,6 +46,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             customerName = (TextView) v.findViewById(R.id.tv_custmer_name);
             phone = (TextView) v.findViewById(R.id.tv_ordered_date);
             email = (TextView) v.findViewById(R.id.tv_delivery_date);
+            balance = (TextView) v.findViewById(R.id.tv_balance);
         }
     }
 
@@ -71,14 +72,21 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             holder.name.setVisibility(View.GONE);
         }else{
             holder.name.setVisibility(View.VISIBLE);
-            holder.name.setText(orderModel.get(position).getCustName());
+            holder.name.setText(General.capitalize(orderModel.get(position).getCustName()));
         }
 
         if(General.isNullOrEmpty(orderModel.get(position).getCustAddress())){
             holder.customerName.setVisibility(View.VISIBLE);
         }else{
             holder.customerName.setVisibility(View.VISIBLE);
-            holder.customerName.setText(orderModel.get(position).getCustAddress());
+            holder.customerName.setText(General.capitalize(orderModel.get(position).getCustAddress()));
+        }
+
+        if(General.isNullOrEmpty(orderModel.get(position).getBalance())){
+            holder.balance.setText(context.getResources().getString(R.string.rupees)+  " " + "0");
+        }else{
+            holder.balance.setText(context.getResources().getString(R.string.rupees)+  " " +
+            orderModel.get(position).getBalance());
         }
 
 

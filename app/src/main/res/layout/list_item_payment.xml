@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="0.8">
+            android:layout_weight="0.7">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,29 +56,33 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:orientation="vertical"
             android:layout_marginTop="10dp">
 
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pay"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:gravity="center"
-                android:padding="10dp"
-                android:background="@color/colorAccent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@drawable/billax_curved_pay"
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:id="@+id/tv_pay"/>
+                android:id="@+id/tv_pay"
+                android:textColor="@color/white"/>
 
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_delete_forever_24dp"
-                android:layout_gravity="center|bottom"
+                android:layout_gravity="right"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"

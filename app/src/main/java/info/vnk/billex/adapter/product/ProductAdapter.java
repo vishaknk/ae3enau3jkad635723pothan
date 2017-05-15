@@ -14,6 +14,7 @@ import java.util.List;
 
 import info.vnk.billex.R;
 import info.vnk.billex.model.product.ProductModel;
+import info.vnk.billex.utilities.General;
 
 /**
  * Created by priyesh on 25/04/17.
@@ -67,8 +68,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(ProductViewHolder holder, final int position) {
 
-        holder.name.setText(orderModel.get(position).getPdtName());
-        holder.customerName.setText(orderModel.get(position).getPdtCode());
+        holder.name.setText(General.capitalize(orderModel.get(position).getPdtName()));
+        holder.customerName.setText(General.capitalize(orderModel.get(position).getPdtCode()));
         holder.price.setText("Amount : " +  context.getResources().getString(R.string.rupees) + " " +  orderModel.get(position).getAmount_tax());
         holder.orderDate.setText("Quantity : " + orderModel.get(position).getQuantity());
         holder.deliveryDate.setText("Landing Cost : "+

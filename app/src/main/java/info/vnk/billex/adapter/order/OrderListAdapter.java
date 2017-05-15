@@ -90,13 +90,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             holder.name.setVisibility(View.GONE);
         }else{
             holder.name.setVisibility(View.VISIBLE);
-            holder.name.setText(orderModel.get(position).getOrderId());
+            holder.name.setText(General.capitalize(orderModel.get(position).getOrderId()));
         }
         if(General.isNullOrEmpty(orderModel.get(position).getCustomerName())){
             holder.customerName.setVisibility(View.GONE);
         }else{
             holder.customerName.setVisibility(View.VISIBLE);
-            holder.customerName.setText(orderModel.get(position).getCustomerName());
+            holder.customerName.setText(General.capitalize(orderModel.get(position).getCustomerName()));
         }
         if(General.isNullOrEmpty(orderModel.get(position).getTotalAmount())){
             holder.price.setVisibility(View.GONE);

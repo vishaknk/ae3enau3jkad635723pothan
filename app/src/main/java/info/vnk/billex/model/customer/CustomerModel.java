@@ -10,7 +10,7 @@ public class CustomerModel {
 
     private int id;
 
-    private String custName, custAddress, custMobile, custPhone , custEmail, custLocation, ownerName, tin;
+    private String custName, custAddress, custMobile, custPhone , custEmail, custLocation, ownerName, tin, balance;
 
     public int getId() {
         return id;
@@ -82,5 +82,13 @@ public class CustomerModel {
 
     public void setTin(String tin) {
         this.tin = tin;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 }

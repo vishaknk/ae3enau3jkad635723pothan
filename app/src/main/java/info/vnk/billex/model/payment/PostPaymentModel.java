@@ -22,6 +22,14 @@ public class PostPaymentModel {
     @JsonProperty("message")
     private String message;
 
+    @JsonProperty("staff_id")
+    private String staff_id;
+
+
+    @JsonProperty("p_type")
+    private String paymentType;
+
+
     public String getCust_id() {
         return cust_id;
     }
@@ -60,5 +68,21 @@ public class PostPaymentModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getStaff_id() {
+        return staff_id;
+    }
+
+    public void setStaff_id(String staff_id) {
+        this.staff_id = staff_id;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 }

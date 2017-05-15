@@ -24,4 +24,5 @@ public class Constants {
     public static String mUserId = "user_id";
     public static final String IS_EDIT = "is_edit";
     public static final String CUSTOMER_ID = "customer_id";
+    public static final String BALANCE = "balance";
 }
