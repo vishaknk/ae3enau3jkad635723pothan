@@ -162,10 +162,10 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_id(data.getPdtId());
                             model.setPdt_name(data.getPdtName());
                             model.setPdt_qty("" + ProductModel.DEFAULT_QUANTITY);
-                            model.setPdt_total_amnt(data.getMrp());
-                            model.setAmount_tax(data.getAmount_tax());
+                            model.setPdt_mrp(data.getMrp());
+                            model.setPdt_price(data.getPrice1());
+                            model.setPdt_tax(data.getAmount_tax());
                             model.setPdt_discount("" + ProductModel.DEFAULT_DISCOUNT);
-                            model.setUpdated_date("");
                             postProductModel.add(model);
                             //Collections.reverse(postProductModel);
                         }
@@ -377,10 +377,10 @@ public class AddOrderActivity extends BaseActivity {
                     model.setPdt_id(getProductModel.getPdt_id());
                     model.setPdt_name(getProductModel.getPdt_name());
                     model.setPdt_qty("" + getProductModel.getPdt_qty());
-                    model.setPdt_total_amnt(getProductModel.getPdt_total_amnt());
-                    model.setAmount_tax("" + 0);
+                    model.setPdt_mrp(getProductModel.getPdt_mrp());
+                    model.setPdt_tax(getProductModel.getPdt_tax_price());
+                    model.setPdt_price(getProductModel.getPdt_price());
                     model.setPdt_discount("" + getProductModel.getPdt_discount());
-                    model.setUpdated_date("" + getProductModel.getUpdated_date());
                     postProductModel.add(model);
                 }
                 adapter.notifyDataSetChanged();
@@ -447,16 +447,7 @@ public class AddOrderActivity extends BaseActivity {
         }
         orderModel.setDateOfDelivery(General.DateFormatter(dateOfDelivery.getText().toString()));
         orderModel.setDateOfOrder(General.DateFormatter(dateOfOrder.getText().toString()));
-        orderModel.setDiscount("0");
         orderModel.setStaffId(preferencesManager.getString(Constants.mUserId));
-        orderModel.setStatus("1");
-        int totalAmount = 0;
-        for(PostProductModel data : postProductModel){
-            totalAmount = totalAmount + Integer.parseInt(data.getPdt_total_amnt());
-        }
-        orderModel.setTotalAmount("" + totalAmount);
-        orderModel.setTotalQuantity("" + postProductModel.size());
-        orderModel.setUpdateDate("");
         orderModel.setListProduct(postProductModel);
         PostMainOrderModel orderMain = new PostMainOrderModel();
         orderMain.setModel(orderModel);

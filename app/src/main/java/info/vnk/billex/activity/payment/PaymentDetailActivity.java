@@ -158,7 +158,7 @@ public class PaymentDetailActivity extends BaseActivity {
         PostPaymentModel model = new PostPaymentModel();
         model.setAmount(mAmount.getText().toString().trim());
         model.setCust_id(mCustomerId);
-        int payamount = Integer.parseInt(mAmount.getText().toString().trim());
+        float payamount = Float.parseFloat(mAmount.getText().toString().trim());
         model.setPaid_date(General.getCurrentdate());
         model.setAmount(String.valueOf(payamount));
         if(mPreferList.get(mSpCredit.getSelectedItemPosition()).equals("Credit"))

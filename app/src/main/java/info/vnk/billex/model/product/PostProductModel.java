@@ -18,17 +18,18 @@ public class PostProductModel {
     @JsonProperty("pdt_qty")
     String pdt_qty;
 
-    @JsonProperty("pdt_total_amnt")
-    String pdt_total_amnt;
+    @JsonProperty("pdt_mrp")
+    String pdt_mrp;
+
+    @JsonProperty("pdt_price")
+    String pdt_price;
 
     @JsonProperty("pdt_discount")
     String pdt_discount;
 
-    @JsonProperty("amount_tax")
-    private String amount_tax = "";
+    @JsonProperty("pdt_tax_price")
+    private String pdt_tax = "";
 
-    @JsonProperty("updated_date")
-    String updated_date = "";
 
     public int getPdt_id() {
         return pdt_id;
@@ -55,14 +56,6 @@ public class PostProductModel {
         this.pdt_qty = pdt_qty;
     }
 
-    public String getPdt_total_amnt() {
-        return pdt_total_amnt;
-    }
-
-    public void setPdt_total_amnt(String pdt_total_amnt) {
-        this.pdt_total_amnt = pdt_total_amnt;
-    }
-
     public String getPdt_discount() {
         return pdt_discount;
     }
@@ -71,19 +64,27 @@ public class PostProductModel {
         this.pdt_discount = pdt_discount;
     }
 
-    public String getUpdated_date() {
-        return updated_date;
+    public String getPdt_mrp() {
+        return pdt_mrp;
     }
 
-    public void setUpdated_date(String updated_date) {
-        this.updated_date = updated_date;
+    public void setPdt_mrp(String pdt_mrp) {
+        this.pdt_mrp = pdt_mrp;
     }
 
-    public String getAmount_tax() {
-        return amount_tax;
+    public String getPdt_price() {
+        return pdt_price;
     }
 
-    public void setAmount_tax(String amount_tax) {
-        this.amount_tax = amount_tax;
+    public void setPdt_price(String pdt_price) {
+        this.pdt_price = pdt_price;
+    }
+
+    public String getPdt_tax() {
+        return pdt_tax;
+    }
+
+    public void setPdt_tax(String pdt_tax) {
+        this.pdt_tax = pdt_tax;
     }
 }

@@ -25,23 +25,8 @@ public class PostOrderModel {
     @JsonProperty("delivery_date")
     String dateOfDelivery;
 
-    @JsonProperty("total_quantity")
-    String totalQuantity;
-
-    @JsonProperty("total_amount")
-    String totalAmount;
-
-    @JsonProperty("discount")
-    String discount;
-
     @JsonProperty("staff_id")
     String staffId;
-
-    @JsonProperty("status")
-    String status;
-
-    @JsonProperty("updated_date")
-    String updateDate;
 
     @JsonProperty("product_details")
     List<PostProductModel> listProduct;
@@ -78,52 +63,12 @@ public class PostOrderModel {
         this.dateOfDelivery = dateOfDelivery;
     }
 
-    public String getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(String totalQuantity) {
-        this.totalQuantity = totalQuantity;
-    }
-
-    public String getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(String totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
-
     public String getStaffId() {
         return staffId;
     }
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
     }
 
     public List<PostProductModel> getListProduct() {
