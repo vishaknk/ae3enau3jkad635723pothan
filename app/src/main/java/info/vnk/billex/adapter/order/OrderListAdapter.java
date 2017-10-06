@@ -51,7 +51,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, price, orderDate, deliveryDate, discount;
+        TextView name, customerName, price, orderDate, deliveryDate, discount, free;
         ImageView cancelOrder, editOrder;
 
         public OrderViewHolder(View v) {
@@ -62,6 +62,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             orderDate = (TextView) v.findViewById(R.id.tv_ordered_date);
             deliveryDate = (TextView) v.findViewById(R.id.tv_delivery_date);
             discount = (TextView) v.findViewById(R.id.tv_discount);
+            free = (TextView) v.findViewById(R.id.tv_free);
             cancelOrder = (ImageView) v.findViewById(R.id.iv_cancelOrder);
             editOrder = (ImageView) v.findViewById(R.id.iv_edit);
         }
@@ -122,6 +123,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         }else{
             holder.discount.setVisibility(View.VISIBLE);
             holder.discount.setText("Discount : " + context.getResources().getString(R.string.rupees)+  " " + orderModel.get(position).getDiscount());
+        }
+
+        if(General.isNullOrEmpty(orderModel.get(position).getFree())){
+            holder.free.setVisibility(View.GONE);
+        }else{
+            holder.free.setVisibility(View.VISIBLE);
+            holder.free.setText("Free : " + context.getResources().getString(R.string.rupees)+  " " + orderModel.get(position).getFree());
         }
 
         if(orderModel.get(position).getStatus().equals("0")){

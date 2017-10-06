@@ -22,7 +22,8 @@ public class SplashScreenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        preferencesManager = Preferences.initSharedPreference(this, Constants.sp_login);
+        Preferences mPreference = new Preferences();
+        preferencesManager = mPreference.initSharedPreference(this, Constants.sp_login);
 
         new Handler().postDelayed(new Runnable() {
 

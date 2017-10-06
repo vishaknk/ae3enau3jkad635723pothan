@@ -28,6 +28,12 @@ public class GetProductModel {
     @JsonProperty("pdtPrice")
     String pdt_price;
 
+    @JsonProperty("gstper")
+    String pdt_gst;
+
+    @JsonProperty("free_qty")
+    String pdt_free;
+
     @JsonProperty("pdtTaxPrice")
     String pdt_tax_price;
 
@@ -89,6 +95,22 @@ public class GetProductModel {
 
     public void setPdt_price(String pdt_price) {
         this.pdt_price = pdt_price;
+    }
+
+    public String getPdt_gst() {
+        return pdt_gst;
+    }
+
+    public void setPdt_gst(String pdt_gst) {
+        this.pdt_gst = pdt_gst;
+    }
+
+    public String getPdt_free() {
+        return pdt_free;
+    }
+
+    public void setPdt_free(String pdt_free) {
+        this.pdt_free = pdt_free;
     }
 
     public String getPdt_tax_price() {

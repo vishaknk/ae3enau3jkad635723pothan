@@ -45,6 +45,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
         holder.price.setText(orderListModel.get(position).getPdt_tax());
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
         holder.mDiscount.setText(orderListModel.get(position).getPdt_discount());
+        holder.mFreeCount.setText(orderListModel.get(position).getPdt_free());
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +94,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
 
         TextView productName, quantity, price, btnMinus, btnPlus;
         ImageView btnDelete;
-        EditText mDiscount;
+        EditText mDiscount, mFreeCount;
         LinearLayout rowItem;
 
         public OrderListViewHolder(View v) {
@@ -106,6 +107,7 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
             btnPlus = (TextView) v.findViewById(R.id.tv_plus);
             btnDelete = (ImageView) v.findViewById(R.id.iv_delete);
             mDiscount = (EditText) v.findViewById(R.id.et_discount);
+            mFreeCount = (EditText) v.findViewById(R.id.et_free);
         }
     }
 }

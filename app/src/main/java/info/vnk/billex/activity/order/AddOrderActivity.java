@@ -164,8 +164,10 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_qty("" + ProductModel.DEFAULT_QUANTITY);
                             model.setPdt_mrp(data.getMrp());
                             model.setPdt_price(data.getPrice1());
+                            model.setPdt_gst(data.getGstper());
                             model.setPdt_tax(data.getAmount_tax());
                             model.setPdt_discount("" + ProductModel.DEFAULT_DISCOUNT);
+                            model.setPdt_free("" + ProductModel.DEFAULT_DISCOUNT);
                             postProductModel.add(model);
                             //Collections.reverse(postProductModel);
                         }
@@ -380,7 +382,9 @@ public class AddOrderActivity extends BaseActivity {
                     model.setPdt_mrp(getProductModel.getPdt_mrp());
                     model.setPdt_tax(getProductModel.getPdt_tax_price());
                     model.setPdt_price(getProductModel.getPdt_price());
+                    model.setPdt_gst(getProductModel.getPdt_gst());
                     model.setPdt_discount("" + getProductModel.getPdt_discount());
+                    model.setPdt_free("" + getProductModel.getPdt_free());
                     postProductModel.add(model);
                 }
                 adapter.notifyDataSetChanged();

@@ -15,7 +15,7 @@ public class ProductModel {
 
     private String pdtName;
 
-    private String pdtCode, mrp, purPrice, price1, quantity = "1", landingCost, tax, amount_tax;
+    private String pdtCode, mrp, purPrice, price1, quantity = "1", landingCost, tax, gstper, free_count, amount_tax;
 
     public int getPdtId() {
         return pdtId;
@@ -87,6 +87,22 @@ public class ProductModel {
 
     public void setTax(String tax) {
         this.tax = tax;
+    }
+
+    public String getGstper() {
+        return gstper;
+    }
+
+    public void setGstper(String gstper) {
+        this.gstper = gstper;
+    }
+
+    public String getFreeCount() {
+        return free_count;
+    }
+
+    public void setFreeCount(String free_count) {
+        this.free_count = free_count;
     }
 
     public String getAmount_tax() {

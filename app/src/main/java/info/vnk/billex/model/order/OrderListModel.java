@@ -26,6 +26,8 @@ public class OrderListModel {
     private String totalAmount;
     @JsonProperty("discount")
     private String discount;
+    @JsonProperty("free")
+    private String free;
     @JsonProperty("status")
     private String status;
     @JsonProperty("dt")
@@ -117,5 +119,13 @@ public class OrderListModel {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getFree() {
+        return free;
+    }
+
+    public void setFree(String free) {
+        this.free = free;
     }
 }
