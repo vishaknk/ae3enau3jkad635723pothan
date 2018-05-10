@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:text="Print"
+            android:background="@color/colorPrimary"
             android:textColor="@android:color/white" />
 
         <Button
@@ -76,6 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:text="Cancel"
+            android:layout_marginLeft="1dp"
+            android:background="@color/colorPrimary"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

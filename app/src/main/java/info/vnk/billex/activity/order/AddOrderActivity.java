@@ -107,12 +107,16 @@ public class AddOrderActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(customerText.getText().length() <= 0){
+                    Toast.makeText(context, "Please select a Customer", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (dateOfOrder.getText().length() <= 0) {
+                    Toast.makeText(context, "Please select Date of Order", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (dateOfDelivery.getText().length() <= 0){
+                    Toast.makeText(context, "Please select Date of Delivery", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(postProductModel.size() <= 0){
+                    Toast.makeText(context, "Add atleast one Product", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     setOrder();

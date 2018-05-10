@@ -208,7 +208,7 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 
@@ -567,7 +567,7 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
         value = value.replace("%ROUND_OFF%",finalDetailsModel.getRoundOff());
         value = value.replace("%AMOUNT%",finalDetailsModel.getGrandTotal());
 
-        return value + getLines();
+        return value + getLines() + "\n \n \n";
     }
 
     private String getCompany(BasicDetailsModel basicDetailsModel){
