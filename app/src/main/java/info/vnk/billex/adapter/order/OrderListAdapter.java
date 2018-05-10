@@ -147,7 +147,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         .setPositiveButton(R.string.yes, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                cancelOrder(orderModel.get(position).getId(),position);
+                                cancelOrder(orderModel.get(position).getOrderId(),position);
                                 mMaterialDialog.dismiss();
                             }
                         })

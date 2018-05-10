@@ -108,6 +108,45 @@
                         android:inputType="textNoSuggestions"
                         android:hint="@string/hint_creditDays"/>
                 </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_gst_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/et_gst_number"
+                        android:inputType="textNoSuggestions"
+                        android:hint="@string/hint_gst"/>
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_pan_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/et_pan_number"
+                        android:inputType="textNoSuggestions"
+                        android:hint="@string/hint_pan"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_aadhar_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/et_aadhar_number"
+                        android:inputType="textNoSuggestions"
+                        android:hint="@string/hint_aadhar"/>
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </ScrollView>
 

@@ -9,6 +9,7 @@ public class Constants {
     public static final String ORDER_ID = "order_id";
     public static final String DOD = "date_of_delivery";
     public static final String DOO = "date_of_order";
+    public static final String BILL_TYPE = "bill_type";
     public static final String CUSTOMER_NAME = "customer_name";
     //Shared Preference for login
     public static String sp_login = "loginDetails";
@@ -25,4 +26,5 @@ public class Constants {
     public static final String IS_EDIT = "is_edit";
     public static final String CUSTOMER_ID = "customer_id";
     public static final String BALANCE = "balance";
+    public static final String mRole = "role";
 }

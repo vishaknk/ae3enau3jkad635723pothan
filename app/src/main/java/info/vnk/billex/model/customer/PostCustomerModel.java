@@ -21,6 +21,14 @@ public class PostCustomerModel {
     private String phone;
     @JsonProperty("tin")
     private String tin;
+    @JsonProperty("gst_no")
+    private String gstNumber;
+    @JsonProperty("pan_no")
+    private String panNumber;
+    @JsonProperty("state_code")
+    private String stateCode;
+    @JsonProperty("aadhar_no")
+    private String aadharNumber;
     @JsonProperty("credit_days")
     private String creditDays;
     @JsonProperty("message")
@@ -80,5 +88,37 @@ public class PostCustomerModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getGstNumber() {
+        return gstNumber;
+    }
+
+    public void setGstNumber(String gstNumber) {
+        this.gstNumber = gstNumber;
+    }
+
+    public String getPanNumber() {
+        return panNumber;
+    }
+
+    public void setPanNumber(String panNumber) {
+        this.panNumber = panNumber;
+    }
+
+    public String getStateCode() {
+        return stateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
+    }
+
+    public String getAadharNumber() {
+        return aadharNumber;
+    }
+
+    public void setAadharNumber(String aadharNumber) {
+        this.aadharNumber = aadharNumber;
     }
 }

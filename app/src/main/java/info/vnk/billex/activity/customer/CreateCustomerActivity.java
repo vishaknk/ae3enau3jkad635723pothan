@@ -28,7 +28,7 @@ public class CreateCustomerActivity extends BaseActivity {
     private Context context;
     private Toolbar toolbar;
     private ProgressBar mProgressBar;
-    private EditText mName, mAddress1, mAddress2, mPhone, mTin, mCreditDays;
+    private EditText mName, mAddress1, mAddress2, mPhone, mTin, mCreditDays, mGstNumber, mPanNumber, mAadharNumber;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,9 @@ public class CreateCustomerActivity extends BaseActivity {
         mPhone = (EditText) findViewById(R.id.et_phone);
         mTin = (EditText) findViewById(R.id.et_tin);
         mCreditDays = (EditText) findViewById(R.id.et_creditDays);
+        mGstNumber = (EditText) findViewById(R.id.et_gst_number);
+        mPanNumber = (EditText) findViewById(R.id.et_pan_number);
+        mAadharNumber = (EditText) findViewById(R.id.et_aadhar_number);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_login);
 
     }
@@ -103,6 +106,10 @@ public class CreateCustomerActivity extends BaseActivity {
         mModel.setTin(mTin.getText().toString().trim());
         mModel.setCreditDays(mCreditDays.getText().toString().trim());
         mModel.setStaff_id(preferencesManager.getString(Constants.mUserId));
+        mModel.setGstNumber(mGstNumber.getText().toString().trim());
+        mModel.setPanNumber(mPanNumber.getText().toString().trim());
+        mModel.setAadharNumber(mAadharNumber.getText().toString().trim());
+        mModel.setStateCode("32");
         return mModel;
 
     }

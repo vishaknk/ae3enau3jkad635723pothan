@@ -19,6 +19,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/search_layout"
         android:hint="Search"
+        android:drawableLeft="@drawable/ic_search_24dp"
+        android:drawablePadding="5dp"
         android:paddingBottom="15dp"
         android:paddingLeft="5dp"
         android:paddingTop="15dp" />

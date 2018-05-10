@@ -25,6 +25,9 @@ public class PostOrderModel {
     @JsonProperty("delivery_date")
     String dateOfDelivery;
 
+    @JsonProperty("bill_type")
+    String billType;
+
     @JsonProperty("staff_id")
     String staffId;
 
@@ -77,5 +80,13 @@ public class PostOrderModel {
 
     public void setListProduct(List<PostProductModel> listProduct) {
         this.listProduct = listProduct;
+    }
+
+    public String getBillType() {
+        return billType;
+    }
+
+    public void setBillType(String billType) {
+        this.billType = billType;
     }
 }

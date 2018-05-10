@@ -51,9 +51,21 @@ android {
         javaMaxHeapSize "4g"
     }
     productFlavors {
-        Production {
-            buildConfigField 'String', "${mFlavour}", '"PRO"'
+        VaisakhMarketing {
+            buildConfigField 'String', "${mFlavour}", '"VM"'
             buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/vaisakhmarketing/api/v1/index.php/"'
+        }
+        FathimaAgroMills {
+            buildConfigField 'String', "${mFlavour}", '"FAM"'
+            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/fathima-agro-mills/api/v1/index.php/"'
+        }
+        FathimaWeb {
+            buildConfigField 'String', "${mFlavour}", '"FAM-WEB"'
+            buildConfigField 'String', "${mBaseURL}", '"http://fathimaagromills.in/web/api/v1/index.php/"'
+        }
+        QuickMix {
+            buildConfigField 'String', "${mFlavour}", '"QMIX"'
+            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/quickmix/api/v1/index.php/"'
         }
         Testing {
             buildConfigField 'String', "${mFlavour}", '"Test"'
@@ -76,7 +88,6 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //For Handling Database connectivity
-    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     //For Handling image loading as caching
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
@@ -97,5 +108,6 @@ dependencies {
     }
 
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
 }

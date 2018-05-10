@@ -23,6 +23,7 @@ import info.vnk.billex.model.customer.CustomerModel;
 import info.vnk.billex.model.customer.CustomerResultModel;
 import info.vnk.billex.network.ApiClient;
 import info.vnk.billex.network.ApiInterface;
+import info.vnk.billex.utilities.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +55,7 @@ public class PaymentActivity extends BaseActivity {
     private void getPaymentList() {
         setProgressBarVisible();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<CustomerResultModel> call = apiService.getCustomer();
+        Call<CustomerResultModel> call = apiService.getCustomer(preferencesManager.getString(Constants.mUserId), preferencesManager.getString(Constants.mRole));
         call.enqueue(new Callback<CustomerResultModel>() {
             @Override
             public void onResponse(Call<CustomerResultModel> call, Response<CustomerResultModel> response) {

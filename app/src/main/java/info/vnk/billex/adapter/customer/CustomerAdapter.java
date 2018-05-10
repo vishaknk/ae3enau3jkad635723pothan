@@ -36,9 +36,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         return filter;
     }
 
-    public static class CustomerViewHolder extends RecyclerView.ViewHolder {
+    public class CustomerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, customerName, phone, email, balance;
+        private TextView name, customerName, phone, email, balance, billType;
 
         public CustomerViewHolder(View v) {
             super(v);
@@ -47,6 +47,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             phone = (TextView) v.findViewById(R.id.tv_ordered_date);
             email = (TextView) v.findViewById(R.id.tv_delivery_date);
             balance = (TextView) v.findViewById(R.id.tv_balance);
+            billType = (TextView) v.findViewById(R.id.tv_bill_type);
         }
     }
 
@@ -89,8 +90,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             orderModel.get(position).getBalance());
         }
 
-
-//        holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
+        //holder.price.setText(context.getResources().getString(R.string.rupees)+ orderModel.get(position).getMrp());
         if(orderModel.get(position).getCustPhone() != null && !orderModel.get(position).getCustPhone().equals("")) {
             holder.phone.setVisibility(View.VISIBLE);
             holder.phone.setText("Phone : " + orderModel.get(position).getCustPhone());
@@ -104,7 +104,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             holder.email.setVisibility(View.GONE);
         }
 
-
+        if(orderModel.get(position).getPaymentType() != null && !orderModel.get(position).getPaymentType().equals("")) {
+            holder.billType.setVisibility(View.VISIBLE);
+            holder.billType.setText("Bill Type : " + (orderModel.get(position).getPaymentType().equals("1") ? "Cash" : "Credit"));
+        }else{
+            holder.billType.setVisibility(View.GONE);
+        }
     }
 
     @Override

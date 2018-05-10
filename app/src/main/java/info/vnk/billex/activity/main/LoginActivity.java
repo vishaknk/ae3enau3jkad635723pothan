@@ -87,6 +87,7 @@ public class LoginActivity extends BaseActivity {
                         preferencesManager.putString(Constants.mUserId, loginDetails.get(0).getUserId());
                         preferencesManager.putString(Constants.MOBILE, loginDetails.get(0).getMobile());
                         preferencesManager.putString(Constants.mSession, loginDetails.get(0).getSession());
+                        preferencesManager.putString(Constants.mRole, loginDetails.get(0).getRole());
                         startActivity(intent);
                         //Setting the account to Logged in state
                         preferencesManager.putBoolean(Constants.IS_LOGGED_IN, true);

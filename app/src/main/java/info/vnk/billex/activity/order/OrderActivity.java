@@ -130,6 +130,8 @@ public class OrderActivity extends BaseActivity {
                 intent.putExtra(Constants.DOD, "" + model.getDeliveryDate());
                 //Date of Order
                 intent.putExtra(Constants.DOO, "" + model.getDateOfOrder());
+                //Bill Type
+                intent.putExtra(Constants.BILL_TYPE, "" + model.getBillType());
                 startActivity(intent);
             }
 

@@ -46,12 +46,15 @@
                     android:layout_marginBottom="5dp"
                     android:text="@string/price" />
 
-                <TextView
-                    android:id="@+id/tv_price"
+                <EditText
+                    android:id="@+id/et_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
+                    android:inputType="numberDecimal"
+                    android:focusable="true"
+                    android:clickable="false"
                     android:text="@string/price" />
 
                 <LinearLayout
@@ -70,7 +73,6 @@
                             android:id="@+id/et_discount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
                             android:focusable="false"
                             android:hint="@string/discount"
                             android:inputType="numberDecimal"

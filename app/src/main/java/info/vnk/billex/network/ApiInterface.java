@@ -9,6 +9,7 @@ import info.vnk.billex.model.order.PostOrderResultModel;
 import info.vnk.billex.model.payment.PaymentDelete;
 import info.vnk.billex.model.payment.PaymentResultModel;
 import info.vnk.billex.model.payment.PostPaymentModel;
+import info.vnk.billex.model.print.PrintMainModel;
 import info.vnk.billex.model.product.GetProductResultModel;
 import info.vnk.billex.model.product.ProductResultModel;
 import retrofit2.Call;
@@ -29,8 +30,8 @@ public interface ApiInterface {
     @GET("listProducts")
     Call<ProductResultModel> getProduct();
 
-    @GET("listCustomer")
-    Call<CustomerResultModel> getCustomer();
+    @GET("listCustomerByStaff")
+    Call<CustomerResultModel> getCustomer(@Query("staff_id") String string, @Query("role") String role);
 
     @GET("staffOrderDetails?")
     Call<OrderResultModel> getOrderList(@Query("staff_id") String string);
@@ -58,4 +59,7 @@ public interface ApiInterface {
 
     @GET("cancelOrder")
     Call<PaymentDelete> cancelOrder(@Query("order_id") String order_Id);
+
+    @GET("getPrint")
+    Call<PrintMainModel> getPrint(@Query("order_id") String order_Id);
 }

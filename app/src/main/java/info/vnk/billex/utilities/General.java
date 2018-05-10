@@ -107,7 +107,7 @@ public class General {
 
         String dateInString = null;
         try {
-            SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdfs.parse(dateValue);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");

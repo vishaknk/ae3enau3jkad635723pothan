@@ -1,14 +1,19 @@
 package info.vnk.billex.activity.order;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +22,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import info.vnk.billex.R;
+import info.vnk.billex.activity.print.BlueToothConnectAndPrint;
 import info.vnk.billex.adapter.order.AddOrderListAdapter;
+import info.vnk.billex.adapter.order.custom.MoneyValueFilter;
 import info.vnk.billex.adapter.order.listener.OrderListener;
 import info.vnk.billex.base.BaseActivity;
 import info.vnk.billex.custom.fullScreenSearch.FullScreenSearch;
@@ -56,10 +63,12 @@ public class AddOrderActivity extends BaseActivity {
     private List<CustomerModel> mCustomerList;
     private Toolbar toolbar;
     private EditText dateOfDelivery, dateOfOrder, customerText;
+    private Spinner billTypeSpinner;
     private static final String TAG = "AddOrderActivity";
     private MaterialDialog mMaterialDialog;
-    private String customerName, customerId, orderId, dod, doo;
+    private String customerName, customerId, orderId, dod, doo, billType;
     private boolean isEdit = false;
+    private RecyclerView recyclerOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +90,12 @@ public class AddOrderActivity extends BaseActivity {
             orderId = getIntent().getExtras().getString(Constants.ORDER_ID);
             dod = getIntent().getExtras().getString(Constants.DOD);
             doo = getIntent().getExtras().getString(Constants.DOO);
+            billType = getIntent().getExtras().getString(Constants.BILL_TYPE);
 
             customerText.setText(customerName);
             dateOfDelivery.setText(General.DateFormatterMtoY(dod));
             dateOfOrder.setText(General.DateFormatterMtoY(doo));
+            billTypeSpinner.setSelection(billType.equals("1") ? 0 : 1);
             getOrderProduct();
         }
     }
@@ -122,6 +133,7 @@ public class AddOrderActivity extends BaseActivity {
         customerText = (EditText) viewOrder.findViewById(R.id.et_select_customer);
         dateOfOrder = (EditText) viewOrder.findViewById(R.id.et_date_of_order);
         dateOfDelivery = (EditText) viewOrder.findViewById(R.id.et_date_of_delivery);
+        billTypeSpinner = (Spinner) viewOrder.findViewById(R.id.sp_bill_type);
         Calendar mCalendar = Calendar.getInstance();
         dateOfOrder.setText(General.setDate(mCalendar));
         customerText.setOnClickListener(new View.OnClickListener() {
@@ -172,15 +184,21 @@ public class AddOrderActivity extends BaseActivity {
                             //Collections.reverse(postProductModel);
                         }
                     }
-                    adapter.notifyDataSetChanged();
+                    getNotify();
+                    //adapter.notifyDataSetChanged();
                 } else if(key == KEY_CUSTOMER) {
-                    setSeletedCustomer(productModel);
+                    setSelectedCustomer(productModel);
                     customerText.setText("" + productModel.getName());
                 }
             }
         });
-        RecyclerView recyclerOrder = (RecyclerView) viewOrder.findViewById(R.id.rv_order);
-        recyclerOrder.setLayoutManager(new LinearLayoutManager(context));
+        recyclerOrder = (RecyclerView) viewOrder.findViewById(R.id.rv_order);
+        //recyclerOrder.setFocusable(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        //To reverse the item
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        recyclerOrder.setLayoutManager(mLayoutManager);
         //Adapter
         adapter = new AddOrderListAdapter(getPostProductModel(), context);
         adapter.setListener(new OrderListener() {
@@ -190,12 +208,14 @@ public class AddOrderActivity extends BaseActivity {
                     int dataValue = Integer.parseInt(postProductModel.get(position).getPdt_qty());
                     dataValue++;
                     postProductModel.get(position).setPdt_qty("" + dataValue);
-                    adapter.notifyDataSetChanged();
+                    getNotify();
+                    //adapter.notifyDataSetChanged();
                 } catch (NumberFormatException e) {
                     int dataValue = 1;
                     dataValue++;
                     postProductModel.get(position).setPdt_qty("" + dataValue);
-                    adapter.notifyDataSetChanged();
+                    getNotify();
+                    //adapter.notifyDataSetChanged();
                 } catch (Exception e ){
                     e.printStackTrace();
                 }
@@ -209,14 +229,16 @@ public class AddOrderActivity extends BaseActivity {
                         dataValue--;
                         postProductModel.get(position).setPdt_qty("" + dataValue);
                     }
-                    adapter.notifyDataSetChanged();
+                    getNotify();
+                    //adapter.notifyDataSetChanged();
                 } catch (NumberFormatException e) {
                     int dataValue = 1;
                     if (dataValue > 1) {
                         dataValue--;
                         postProductModel.get(position).setPdt_qty("" + dataValue);
                     }
-                    adapter.notifyDataSetChanged();
+                    getNotify();
+                    //adapter.notifyDataSetChanged();
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -231,6 +253,8 @@ public class AddOrderActivity extends BaseActivity {
             public Long quantityClick(final int position, final Long quantity){
                 long data = 0;
                 final EditText contentView = new EditText(context);
+                contentView.setFocusable(true);
+                contentView.setInputType(InputType.TYPE_CLASS_PHONE);
                 contentView.setText("" + quantity);
                 mMaterialDialog = new MaterialDialog(context).setView(contentView)
                         .setTitle(R.string.order_title)
@@ -240,7 +264,8 @@ public class AddOrderActivity extends BaseActivity {
                             public void onClick(View v) {
                                 Log.v(TAG,"" + contentView.getText());
                                 postProductModel.get(position).setPdt_qty("" + contentView.getText());
-                                adapter.notifyDataSetChanged();
+                                getNotify();
+                                //adapter.notifyDataSetChanged();
                                 mMaterialDialog.dismiss();
                             }
                         })
@@ -257,6 +282,8 @@ public class AddOrderActivity extends BaseActivity {
             @Override
             public void discountAdded(final int position, String discount) {
                 final EditText contentView = new EditText(context);
+                contentView.setFocusable(true);
+                contentView.setInputType(InputType.TYPE_CLASS_PHONE);
                 contentView.setText("" + discount);
                 contentView.setFocusable(true);
                 mMaterialDialog = new MaterialDialog(context).setView(contentView)
@@ -267,7 +294,8 @@ public class AddOrderActivity extends BaseActivity {
                             public void onClick(View v) {
                                 Log.v(TAG,"" + contentView.getText());
                                 postProductModel.get(position).setPdt_discount("" + contentView.getText());
-                                adapter.notifyDataSetChanged();
+                                getNotify();
+                                //adapter.notifyDataSetChanged();
                                 mMaterialDialog.dismiss();
                             }
                         })
@@ -278,6 +306,36 @@ public class AddOrderActivity extends BaseActivity {
                             }
                         });
                 mMaterialDialog.show();                //adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void priceChange(final int position, String price) {
+                final EditText contentView = new EditText(context);
+                contentView.setFilters(new InputFilter[] {new MoneyValueFilter()});
+                contentView.setFocusable(true);
+                contentView.setInputType(InputType.TYPE_CLASS_PHONE);
+                contentView.setText("" + price);
+                contentView.setFocusable(true);
+                mMaterialDialog = new MaterialDialog(context).setView(contentView)
+                        .setTitle(R.string.order_title)
+                        .setMessage(R.string.enter_price)
+                        .setPositiveButton(R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.v(TAG,"" + contentView.getText());
+                                postProductModel.get(position).setPdt_tax("" + contentView.getText());
+                                //adapter.notifyDataSetChanged();
+                                mMaterialDialog.dismiss();
+                                getNotify();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                            }
+                        });
+                mMaterialDialog.show();
             }
         });
         recyclerOrder.setAdapter(adapter);
@@ -308,6 +366,18 @@ public class AddOrderActivity extends BaseActivity {
         }
     }
 
+    public void getNotify(){
+        final int SCROLLING_UP = -1;
+        boolean scrollToNewTop = !recyclerOrder.canScrollVertically(SCROLLING_UP);
+        //TODO update adapter here
+        //adapter.notifyItemInserted(adapter.getItemCount() - 1);
+        adapter.notifyDataSetChanged();
+        if (scrollToNewTop) {
+            recyclerOrder.scrollToPosition(adapter.getItemCount() - 1);
+        }
+        hideKeyboard();
+    }
+
     public void setDeleteConfirm(Context context, final int index){
         mMaterialDialog = new MaterialDialog(context)
                 .setTitle(R.string.order_title)
@@ -316,7 +386,8 @@ public class AddOrderActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         postProductModel.remove(index);
-                        adapter.notifyDataSetChanged();
+                        getNotify();
+                        //adapter.notifyDataSetChanged();
                         mMaterialDialog.dismiss();
                     }
                 })
@@ -387,7 +458,8 @@ public class AddOrderActivity extends BaseActivity {
                     model.setPdt_free("" + getProductModel.getPdt_free());
                     postProductModel.add(model);
                 }
-                adapter.notifyDataSetChanged();
+                getNotify();
+                //adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -401,7 +473,7 @@ public class AddOrderActivity extends BaseActivity {
     // call api to fetch data
     private void getCustomerList() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<CustomerResultModel> call = apiService.getCustomer();
+        Call<CustomerResultModel> call = apiService.getCustomer(preferencesManager.getString(Constants.mUserId), preferencesManager.getString(Constants.mRole));
         call.enqueue(new Callback<CustomerResultModel>() {
             @Override
             public void onResponse(Call<CustomerResultModel> call, Response<CustomerResultModel> response) {
@@ -447,8 +519,9 @@ public class AddOrderActivity extends BaseActivity {
             orderModel.setOrderId(orderId);
             orderModel.setCustomerId(Integer.parseInt(customerId));
         } else {
-            orderModel.setCustomerId(getSeletedCustomer().getId());
+            orderModel.setCustomerId(getSelectedCustomer().getId());
         }
+        orderModel.setBillType(billTypeSpinner.getSelectedItem().toString().equals("Cash") ? "1" : "2");
         orderModel.setDateOfDelivery(General.DateFormatter(dateOfDelivery.getText().toString()));
         orderModel.setDateOfOrder(General.DateFormatter(dateOfOrder.getText().toString()));
         orderModel.setStaffId(preferencesManager.getString(Constants.mUserId));
@@ -473,6 +546,9 @@ public class AddOrderActivity extends BaseActivity {
                 //response.body().getMessage();
                 Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
                 finish();
+                //Intent intent = new Intent(AddOrderActivity.this, BlueToothConnectAndPrint.class);
+                //intent.putExtra("OrderId", response.body().getOrderId());
+                //startActivity(intent);
             }
 
             @Override
@@ -502,12 +578,21 @@ public class AddOrderActivity extends BaseActivity {
         this.postProductModel = postProductModel;
     }
 
-    public SearchModel getSeletedCustomer() {
+    public SearchModel getSelectedCustomer() {
         return seletedCustomer;
     }
 
-    public void setSeletedCustomer(SearchModel seletedCustomer) {
+    public void setSelectedCustomer(SearchModel seletedCustomer) {
         this.seletedCustomer = seletedCustomer;
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 }
 

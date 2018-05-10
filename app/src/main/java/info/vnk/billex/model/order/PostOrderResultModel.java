@@ -11,6 +11,9 @@ public class PostOrderResultModel {
     @JsonProperty("message")
     private String message;
 
+    @JsonProperty("order_id")
+    private String orderId;
+
     @JsonProperty("status")
     private int status;
 
@@ -28,5 +31,13 @@ public class PostOrderResultModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

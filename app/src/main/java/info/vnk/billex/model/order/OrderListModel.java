@@ -20,6 +20,8 @@ public class OrderListModel {
     private String dateOfOrder;
     @JsonProperty("deliveryDate")
     private String deliveryDate;
+    @JsonProperty("bill_type")
+    private String billType;
     @JsonProperty("totalQuantity")
     private String totalQuantity;
     @JsonProperty("totalAmount")
@@ -127,5 +129,13 @@ public class OrderListModel {
 
     public void setFree(String free) {
         this.free = free;
+    }
+
+    public String getBillType() {
+        return billType;
+    }
+
+    public void setBillType(String billType) {
+        this.billType = billType;
     }
 }

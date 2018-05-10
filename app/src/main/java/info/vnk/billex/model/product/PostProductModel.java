@@ -63,7 +63,10 @@ public class PostProductModel {
     }
 
     public String getPdt_discount() {
-        return pdt_discount;
+        if(pdt_discount != null && !pdt_discount.equals("null"))
+            return pdt_discount;
+        else
+            return "0";
     }
 
     public void setPdt_discount(String pdt_discount) {
@@ -95,7 +98,10 @@ public class PostProductModel {
     }
 
     public String getPdt_free() {
-        return pdt_free;
+        if(pdt_free != null && !pdt_free.equals("null"))
+            return pdt_free;
+        else
+            return "0";
     }
 
     public void setPdt_free(String pdt_free) {

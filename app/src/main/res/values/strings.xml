@@ -48,4 +48,12 @@
     <string name="enter_discount">Enter the discount</string>
     <string name="enter_quantity">Enter the quantity</string>
     <string name="free_count">Free Count</string>
+    <string name="enter_price">Enter Price</string>
+    <string name="hint_aadhar">Aadhar Number</string>
+    <string name="hint_pan">Pan Number</string>
+    <string name="hint_gst">Gst Number</string>
+    <string-array name="payment_arrays">
+        <item>Cash</item>
+        <item>Credit</item>
+    </string-array>
 </resources>

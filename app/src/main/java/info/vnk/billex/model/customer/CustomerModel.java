@@ -10,7 +10,7 @@ public class CustomerModel {
 
     private int id;
 
-    private String custName, custAddress, custMobile, custPhone , custEmail, custLocation, ownerName, tin, balance;
+    private String custName, custAddress, custMobile, custPhone , custEmail, custLocation, ownerName, tin, balance, bill_type;
 
     public int getId() {
         return id;
@@ -90,5 +90,13 @@ public class CustomerModel {
 
     public void setBalance(String balance) {
         this.balance = balance;
+    }
+
+    public String getPaymentType() {
+        return bill_type;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.bill_type = paymentType;
     }
 }

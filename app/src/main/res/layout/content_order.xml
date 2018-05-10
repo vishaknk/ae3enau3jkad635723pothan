@@ -65,6 +65,15 @@
 
                 </LinearLayout>
 
+                <Spinner
+                    android:id="@+id/sp_bill_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:entries="@array/payment_arrays"
+                    android:visibility="gone"
+                    android:padding="5dp"/>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

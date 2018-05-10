@@ -2,6 +2,7 @@ package info.vnk.billex.adapter.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import info.vnk.billex.R;
+import info.vnk.billex.adapter.order.custom.MoneyValueFilter;
 import info.vnk.billex.adapter.order.listener.OrderListener;
 import info.vnk.billex.model.product.PostProductModel;
 import info.vnk.billex.utilities.General;
@@ -43,6 +45,9 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
     public void onBindViewHolder(final OrderListViewHolder holder, final int position) {
         holder.productName.setText(General.capitalize(orderListModel.get(position).getPdt_name()));
         holder.price.setText(orderListModel.get(position).getPdt_tax());
+        if(position == getItemCount() - 1)
+            holder.price.requestFocus();
+
         holder.quantity.setText(orderListModel.get(position).getPdt_qty());
         holder.mDiscount.setText(orderListModel.get(position).getPdt_discount());
         holder.mFreeCount.setText(orderListModel.get(position).getPdt_free());
@@ -78,6 +83,12 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
                 orderListener.discountAdded(position, holder.mDiscount.getText().toString());
             }
         });
+        holder.price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderListener.priceChange(position, holder.price.getText().toString());
+            }
+        });
 
     }
 
@@ -102,7 +113,8 @@ public class AddOrderListAdapter extends RecyclerView.Adapter<AddOrderListAdapte
             rowItem = (LinearLayout) v.findViewById(R.id.item_row);
             productName = (TextView) v.findViewById(R.id.tv_product_name);
             quantity = (TextView) v.findViewById(R.id.tv_quantity);
-            price = (TextView) v.findViewById(R.id.tv_price);
+            price = (EditText) v.findViewById(R.id.et_price);
+            price.setFilters(new InputFilter[] {new MoneyValueFilter()});
             btnMinus = (TextView) v.findViewById(R.id.tv_minus);
             btnPlus = (TextView) v.findViewById(R.id.tv_plus);
             btnDelete = (ImageView) v.findViewById(R.id.iv_delete);

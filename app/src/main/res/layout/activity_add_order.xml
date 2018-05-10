@@ -46,7 +46,9 @@
             android:src="@drawable/ic_add_24dp"
             android:layout_below="@+id/toolbar_order"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="14dp" />
+            android:layout_marginTop="14dp"
+            android:descendantFocusability="afterDescendants"
+            android:focusable="false"/>
 
     </RelativeLayout>
 
