@@ -47,6 +47,7 @@
     <string name="discount">Discount</string>
     <string name="enter_discount">Enter the discount</string>
     <string name="enter_quantity">Enter the quantity</string>
+    <string name="quantity_exceed">Quantity Exceed</string>
     <string name="free_count">Free Count</string>
     <string name="enter_price">Enter Price</string>
     <string name="hint_aadhar">Aadhar Number</string>

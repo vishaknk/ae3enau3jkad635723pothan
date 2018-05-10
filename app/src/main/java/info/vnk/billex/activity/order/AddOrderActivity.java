@@ -174,6 +174,7 @@ public class AddOrderActivity extends BaseActivity {
                             model.setPdt_id(data.getPdtId());
                             model.setPdt_name(data.getPdtName());
                             model.setPdt_qty("" + ProductModel.DEFAULT_QUANTITY);
+                            model.setPdt_balance_qty(data.getQuantity());
                             model.setPdt_mrp(data.getMrp());
                             model.setPdt_price(data.getPrice1());
                             model.setPdt_gst(data.getGstper());
@@ -206,8 +207,13 @@ public class AddOrderActivity extends BaseActivity {
             public void plusClick(int position) {
                 try {
                     int dataValue = Integer.parseInt(postProductModel.get(position).getPdt_qty());
+                    int balanceStock = Integer.parseInt(postProductModel.get(position).getPdt_balance_qty());
                     dataValue++;
-                    postProductModel.get(position).setPdt_qty("" + dataValue);
+                    if(dataValue > balanceStock) {
+                        getNoStockMessage();
+                    } else {
+                        postProductModel.get(position).setPdt_qty("" + dataValue);
+                    }
                     getNotify();
                     //adapter.notifyDataSetChanged();
                 } catch (NumberFormatException e) {
@@ -263,10 +269,17 @@ public class AddOrderActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 Log.v(TAG,"" + contentView.getText());
-                                postProductModel.get(position).setPdt_qty("" + contentView.getText());
+                                int balanceStock = Integer.parseInt(postProductModel.get(position).getPdt_balance_qty());
+                                int currentValue = Integer.parseInt(contentView.getText() == null ? "0" : contentView.getText().toString());
+                                mMaterialDialog.dismiss();
+                                if(currentValue > balanceStock) {
+                                    getNoStockMessage();
+                                } else {
+                                    postProductModel.get(position).setPdt_qty("" + currentValue);
+                                }
+                                //postProductModel.get(position).setPdt_qty("" + contentView.getText());
                                 getNotify();
                                 //adapter.notifyDataSetChanged();
-                                mMaterialDialog.dismiss();
                             }
                         })
                         .setNegativeButton(R.string.cancel, new View.OnClickListener() {
@@ -352,6 +365,25 @@ public class AddOrderActivity extends BaseActivity {
         });
     }
 
+    public void getNoStockMessage() {
+        mMaterialDialog = new MaterialDialog(context)
+                .setTitle(R.string.order_title)
+                .setMessage(R.string.quantity_exceed)
+                .setPositiveButton(R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                });
+        mMaterialDialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         Log.d(TAG, "onBackPressed Called");
@@ -424,7 +456,7 @@ public class AddOrderActivity extends BaseActivity {
     // call api to fetch data
     private void getProductList() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ProductResultModel> call = apiService.getProduct();
+        Call<ProductResultModel> call = apiService.getProductByStaff(preferencesManager.getString(Constants.mUserId));
         call.enqueue(new Callback<ProductResultModel>() {
             @Override
             public void onResponse(Call<ProductResultModel> call, Response<ProductResultModel> response) {
@@ -494,7 +526,7 @@ public class AddOrderActivity extends BaseActivity {
         for (ProductModel data : mProductList) {
             SearchModel searchModel = new SearchModel();
             searchModel.setId(data.getPdtId());
-            searchModel.setName(data.getPdtName());
+            searchModel.setName(data.getPdtName() + " (" + data.getQuantity() + ")");
             searchModel.setCode(data.getPdtCode());
             list.add(searchModel);
         }
@@ -546,9 +578,9 @@ public class AddOrderActivity extends BaseActivity {
                 //response.body().getMessage();
                 Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
                 finish();
-                //Intent intent = new Intent(AddOrderActivity.this, BlueToothConnectAndPrint.class);
-                //intent.putExtra("OrderId", response.body().getOrderId());
-                //startActivity(intent);
+                Intent intent = new Intent(AddOrderActivity.this, BlueToothConnectAndPrint.class);
+                intent.putExtra("OrderId", response.body().getOrderId());
+                startActivity(intent);
             }
 
             @Override

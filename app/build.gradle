@@ -56,20 +56,24 @@ android {
             buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/vaisakhmarketing/api/v1/index.php/"'
         }
         FathimaAgroMills {
-            buildConfigField 'String', "${mFlavour}", '"FAM"'
-            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/fathima-agro-mills/api/v1/index.php/"'
-        }
-        FathimaWeb {
             buildConfigField 'String', "${mFlavour}", '"FAM-WEB"'
             buildConfigField 'String', "${mBaseURL}", '"http://fathimaagromills.in/web/api/v1/index.php/"'
         }
         QuickMix {
             buildConfigField 'String', "${mFlavour}", '"QMIX"'
-            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/quickmix/api/v1/index.php/"'
+            buildConfigField 'String', "${mBaseURL}", '"http://quickmixkerala.in/web/api/v1/index.php/"'
         }
-        Testing {
+        VaisakhMarketingTest {
             buildConfigField 'String', "${mFlavour}", '"Test"'
             buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/vm/api/v1/index.php/"'
+        }
+        FathimaAgroMillsTest {
+            buildConfigField 'String', "${mFlavour}", '"FAM"'
+            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/fathima-agro-mills/api/v1/index.php/"'
+        }
+        QuickMixTest {
+            buildConfigField 'String', "${mFlavour}", '"QMIX"'
+            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/quickmix/api/v1/index.php/"'
         }
     }
 }

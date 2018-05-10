@@ -18,6 +18,8 @@ public class PostProductModel {
     @JsonProperty("pdt_qty")
     String pdt_qty;
 
+    String pdt_balance_qty;
+
     @JsonProperty("pdt_mrp")
     String pdt_mrp;
 
@@ -114,5 +116,13 @@ public class PostProductModel {
 
     public void setPdt_tax(String pdt_tax) {
         this.pdt_tax = pdt_tax;
+    }
+
+    public String getPdt_balance_qty() {
+        return pdt_balance_qty;
+    }
+
+    public void setPdt_balance_qty(String pdt_balance_qty) {
+        this.pdt_balance_qty = pdt_balance_qty;
     }
 }

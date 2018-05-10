@@ -30,6 +30,9 @@ public interface ApiInterface {
     @GET("listProducts")
     Call<ProductResultModel> getProduct();
 
+    @GET("listProductsStaff")
+    Call<ProductResultModel> getProductByStaff(@Query("staff_id") String staffId);
+
     @GET("listCustomerByStaff")
     Call<CustomerResultModel> getCustomer(@Query("staff_id") String string, @Query("role") String role);
 
