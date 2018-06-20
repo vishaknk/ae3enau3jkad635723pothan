@@ -7,6 +7,8 @@ import android.os.Handler;
 import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import info.vnk.billex.R;
+import info.vnk.billex.activity.order.AddOrderActivity;
+import info.vnk.billex.activity.print.BlueToothConnectAndPrint;
 import info.vnk.billex.utilities.Constants;
 import info.vnk.billex.utilities.Preferences;
 import info.vnk.billex.base.BaseActivity;
@@ -43,6 +45,10 @@ public class SplashScreenActivity extends BaseActivity {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
 
                 startActivity(intent);
+
+                /*Intent intent = new Intent(SplashScreenActivity.this, BlueToothConnectAndPrint.class);
+                intent.putExtra("OrderId", "12");
+                startActivity(intent);*/
                 // close this activity
                 finish();
             }

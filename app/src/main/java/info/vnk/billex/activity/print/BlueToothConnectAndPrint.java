@@ -262,6 +262,7 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 Log.e("click", "count");
                 getPrint();
+                //getPrintData();
                 //sendMessageTahi(printmsg);
             }
         });
@@ -446,6 +447,51 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
 
                                     mChatService.write(m);
 
+                                }else if (matcher.group(1).equals("0X13")) {
+                                    //DOUBLE HEIGHT
+                                    byte[] m = new byte[3];
+                                    m[0] = (byte) 0x1B;
+                                    m[1] = (byte) 0x13;
+                                    ///////////////////
+                                    //Given 110 space//
+                                    ///////////////////
+                                    m[2] = (byte) 0x6E;
+
+                                    if (i == 1) {
+                                        Thread.sleep(1050);
+                                    }
+
+                                    mChatService.write(m);
+
+                                }else if (matcher.group(1).equals("0x33")) {
+                                    //BOLD FONT
+                                    byte[] m = new byte[3];
+                                    m[0] = (byte) 0x1B;
+                                    m[1] = (byte) 0x21;
+                                    m[2] = (byte) 0x08;
+
+                                    if (i == 1) {
+                                        Thread.sleep(1050);
+                                    }
+
+                                    mChatService.write(m);
+
+                                }else if (matcher.group(1).equals("00x1")) {
+                                    //DOUBLE HEIGHT
+                                    byte[] m = new byte[3];
+                                    m[0] = (byte) 0x1B;
+                                    m[1] = (byte) 0x13;
+                                    ///////////////////
+                                    //Given 110 space//
+                                    ///////////////////
+                                    m[2] = (byte) 0x14;
+
+                                    if (i == 1) {
+                                        Thread.sleep(1050);
+                                    }
+
+                                    mChatService.write(m);
+
                                 }
 
                             } catch (Exception e) {
@@ -517,14 +563,85 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
         mChatService.connect(device);
     }
 
-    private String getHeader(){
-        String header = "NO.1 FOOD PRODUCTS\nKUMARAPURAM\nGSTIN: 32ARFPJ2869Q1Z9\n";
+    //Header with company details
+    private String getHeader(BasicDetailsModel basicDetailsModel){
+        String header = "|Billed To:%COMPANY_NAME%/@Tax Invoice/@Inv.No:%BILL_NO%-@" +
+                "|Address:%ADDRESS%/@NO 1 Food Products/@Date:%ORDER_DATE%-@" +
+                "|Cust GSTIN:%GST%/@Kumarapuram/@GSTIN:32ARFPJ2869Q1Z9-@";
+        header = header.replace("%COMPANY_NAME%",basicDetailsModel.getName().toString());
+        header  = header.replace("%BILL_NO%",basicDetailsModel.getBillNumber().toString());
+        header = header.replace("%ORDER_DATE%",basicDetailsModel.getOrderDate().toString());
+        header = header.replace("%ADDRESS%",basicDetailsModel.getAddress().toString());
+        header = header.replace("%GST%",basicDetailsModel.getGst().toString());
         return header;
     }
 
+    private String getProductHeader() {
+        String productHeader = "|%SERIAL%-%ITEM_NAME%-%HSN%-%GST%-%PRICE%-%QTY%-%GROSS_AMT%-%DIS_AMT%-%TAX%-%GST_AMT%-%TOTAL_AMT%";
+        productHeader = productHeader.replace("%SERIAL%", getWordWithSpace("Sl",4, true));
+        productHeader = productHeader.replace("%ITEM_NAME%", getWordWithSpace("Commodity Name",26, true));
+        productHeader = productHeader.replace("%HSN%", getWordWithSpace("HSN Code",9, true));
+        productHeader = productHeader.replace("%GST%", getWordWithSpace("GST %",7, true));
+        productHeader = productHeader.replace("%PRICE%", getWordWithSpace("Price",9, true));
+        productHeader = productHeader.replace("%QTY%", getWordWithSpace("Qty",7, true));
+        productHeader = productHeader.replace("%GROSS_AMT%", getWordWithSpace("Gross Amt",10, true));
+        productHeader = productHeader.replace("%DIS_AMT%", getWordWithSpace("Dis Amt",9, true));
+        productHeader = productHeader.replace("%TAX%", getWordWithSpace("Tax Amt",9, true));
+        productHeader = productHeader.replace("%GST_AMT%", getWordWithSpace("Gst Amt",9, true));
+        productHeader = productHeader.replace("%TOTAL_AMT%", getWordWithSpace("Total",10, true));
+        productHeader = productHeader.replace("-","")  /*+ "=="*/;
+        return productHeader + getLines();
+    }
+
+
+
+    private String getProductDetails(List<ItemDetailsModel> itemDetailsModels) {
+
+        String title = "";
+        //10 Product on the first page and 14 on other pages
+        int paging = 9;
+
+        for(int i = 0 ; i < itemDetailsModels.size(); i++) {
+
+            String productDetails = "|%SERIAL%-%ITEM_NAME%-%HSN%-%GST%-%PRICE%-%QTY%-%GROSS_AMT%-%DIS_AMT%-%TAX%-%GST_AMT%-%TOTAL_AMT%";
+            productDetails = productDetails.replace("%SERIAL%", getWordWithSpace(itemDetailsModels.get(i).getSerialNo(), 4, true));
+            productDetails = productDetails.replace("%ITEM_NAME%", getWordWithSpace(itemDetailsModels.get(i).getItemName(), 26, true));
+            productDetails = productDetails.replace("%HSN%", getWordWithSpace(itemDetailsModels.get(i).getHsnCode(), 9, true));
+            productDetails = productDetails.replace("%GST%", getWordWithSpace(itemDetailsModels.get(i).getGst(), 7, true));
+            productDetails = productDetails.replace("%PRICE%", getWordWithSpace(itemDetailsModels.get(i).getPrice(), 9, true));
+            productDetails = productDetails.replace("%QTY%", getWordWithSpace(itemDetailsModels.get(i).getQuantity(), 7, true));
+            productDetails = productDetails.replace("%GROSS_AMT%", getWordWithSpace(itemDetailsModels.get(i).getGrossAmount(), 10, true));
+            productDetails = productDetails.replace("%DIS_AMT%", getWordWithSpace("0", 9, true));
+            productDetails = productDetails.replace("%TAX%", getWordWithSpace(itemDetailsModels.get(i).getNetAmount(), 9, true));
+            productDetails = productDetails.replace("%GST_AMT%", getWordWithSpace(itemDetailsModels.get(i).getTaxAmount(), 9, true));
+            productDetails = productDetails.replace("%TOTAL_AMT%", getWordWithSpace(itemDetailsModels.get(i).getTotalAmount(), 10, true));
+            productDetails = productDetails.replace("-", "");
+
+            title = title + productDetails /*+ "=="*/;
+
+            if(paging == i){
+                title = title + getProductHeader();
+                paging = paging + 14;
+            }
+        }
+        return title;
+    }
+
+    private String getProductPriceDetail(FinalDetailsModel finalDetailsModel){
+        String value =
+                "ROUND OFF: %ROUND_OFF%" +
+                " -- TOTAL AMT: %AMOUNT%";
+        value = value.replace("%ROUND_OFF%",finalDetailsModel.getRoundOff());
+        value = value.replace("%AMOUNT%",finalDetailsModel.getGrandTotal());
+
+        return getWordWithSpace(value, 110, false);
+    }
+
     private String getLines(){
-        String lines = "------------------------";
-        return lines;
+        String lines = "";
+        for(int i = 0; i < 110 ; i++)
+            lines = lines + "-";
+        return lines /*+ "=="*/;
     }
 
     private String getTitleHeader(List<ItemDetailsModel> itemDetailsModels){
@@ -595,17 +712,11 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
 
                 PrintResultModel resultModel =  response.body().getResult();
 
-                printmsg =  "<0x00><0x01>" + getHeader() + getLines() +
-                        getCompany(resultModel.getBasicDetails()) +
-                        getTitleHeader(resultModel.getItemDetails()) +
-                        getFinalDetail(resultModel.getFinalDetails()) +
-                        "<0x0A>";
+                getPrintData(resultModel);
 
-
-
-                sendMessageTahi(printmsg);
-                Toast.makeText(BlueToothConnectAndPrint.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                finish();
+                //sendMessageTahi(printmsg);
+//                Toast.makeText(BlueToothConnectAndPrint.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+               // finish();
             }
 
             @Override
@@ -614,6 +725,82 @@ public class BlueToothConnectAndPrint extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getPrintData(PrintResultModel resultModel) {
+        printmsg =  "<0x00><0x01><0X13>" +
+                getPrintLayout(getHeader(resultModel.getBasicDetails()), 110) +
+                getLines() +
+                getProductHeader() +
+                getProductDetails(resultModel.getItemDetails()) +
+                getLines() + "<0x33>" +
+                getProductPriceDetail(resultModel.getFinalDetails()) +
+                getLines() + "<0x01>" +
+                //getFinalDetail(resultModel.getFinalDetails()) +
+                "<0x0A>";
+        //printmsg = "<0x00><00x1><0x33>Test0x01>";
+        /*String[] lines = printmsg.split("==");
+        for(String line : lines){
+            System.out.println(line);
+        }*/
+        sendMessageTahi(printmsg);
+
+    }
+
+    private String getPrintLayout(String data, int count) {
+        String printString = "";
+        String suffix = " ";
+        String prefix = " ";
+        //Split the string in different lines
+        String[] lines = data.split("-@");
+        for(String line : lines){
+            int totalWordLength = 0;
+            //Split the string in different lines
+            String[] words = line.split("/@");
+            for(String word : words){
+                totalWordLength = totalWordLength + word.length();
+            }
+            int equalSplit = (count - totalWordLength)/(words.length - 1);
+
+            if(110 < (totalWordLength + (equalSplit * (words.length - 1)))) {
+                equalSplit = equalSplit - 1;
+            }
+
+            int i = 0;
+            String singleLine = "";
+            for(String word : words){
+                if(i == 0)
+                    singleLine = singleLine + word;
+                else
+                    singleLine = singleLine + getSpaceString(equalSplit) + word ;
+                i++;
+            }
+            printString = printString + getWordWithSpace(singleLine, 110, true);
+            //printString = printString + "==";
+        }
+        return printString;
+    }
+
+    private String getSpaceString(int count) {
+        String dataSpace= "";
+        for(int index = 0 ; index < count ; index++){
+            dataSpace = dataSpace + " ";
+        }
+        return dataSpace;
+    }
+
+    private String getWordWithSpace(String word, int count, boolean postfix) {
+        int wordCount = word.length();
+        if(wordCount == count) {
+            return word;
+        } else if(wordCount < count) {
+            if(postfix)
+                return word + getSpaceString(count - wordCount);
+            else
+                return getSpaceString(count - wordCount) + word;
+        } else {
+            return word.substring(0, count);
+        }
     }
 
 }
