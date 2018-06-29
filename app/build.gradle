@@ -71,6 +71,10 @@ android {
             buildConfigField 'String', "${mFlavour}", '"FAM"'
             buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/fathima-agro-mills/api/v1/index.php/"'
         }
+        FathimaAgroMillsTHRTest {
+            buildConfigField 'String', "${mFlavour}", '"FAM_THR"'
+            buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/illical/web/api/v1/"'
+        }
         QuickMixTest {
             buildConfigField 'String', "${mFlavour}", '"QMIX"'
             buildConfigField 'String', "${mBaseURL}", '"http://exioxtechnologies.com/quickmix/api/v1/index.php/"'
