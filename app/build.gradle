@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.gfx.ribbonizer'
 
 ext {
     mFlavour = "FLAVOR_NAME";
@@ -118,4 +119,44 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
+}
+
+ribbonizer {
+    // "manifest application[android:icon]" is automatically added to the list
+    iconNames "@drawable/ic_notification", "@drawable/widget_preview"
+
+    builder { variant, iconFile ->
+        // change ribbon colors by product flavors
+        if (variant.flavorName == "QMIX") {
+            return grayRibbonFilter(variant, iconFile)
+        } else if (variant.flavorName == "VM") {
+            // customColorRibbonFilter allows setting any color code
+            def filter = customColorRibbonFilter(variant, iconFile, "#00C89C")
+            // Finer control of the label text can be achieved by setting it manually, or set to
+            // null for an unlabelled ribbon. The default is to use the flavor name.
+            filter.label = "QA" + variant.versionCode
+            return filter
+        } else if (variant.flavorName == "FAM" || variant.flavorName == "FAM-WEB") {
+            return yellowRibbonFilter(variant, iconFile)
+        } else if (variant.buildType.name == "debug") {
+            if (variant.flavorName == "production") {
+                // Particular configurations can be skipped by returning no filters
+                return null
+            } else {
+                // Other filters can be applied, as long as they implement Consumer<BufferedImage>
+                //return grayScaleFilter(variant, iconFile)
+
+                def filter = customColorRibbonFilter(variant, iconFile, "#00C89C")
+                // Finer control of the label text can be achieved by setting it manually, or set to
+                // null for an unlabelled ribbon. The default is to use the flavor name.
+                filter.label = "FAM" /*+ variant.versionCode*/
+                return filter
+            }
+        } else {
+            return greenRibbonFilter(variant, iconFile)
+        }
+    }
+//Although `canary` build-type is marked as `non-debuggable`
+    //we can still force specific variants to be ribbonized:
+    forcedVariantsNames "localCanary"
 }
